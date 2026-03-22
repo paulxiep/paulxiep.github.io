@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'projects'>['data'];
+
+const { title, description, repo, tags } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.meta {
+				color: rgb(var(--gray));
+				margin-bottom: 0.5em;
+			}
+			.meta a {
+				color: var(--accent);
+			}
+			.tags {
+				display: flex;
+				gap: 0.5em;
+				justify-content: center;
+				flex-wrap: wrap;
+				margin-top: 0.5em;
+			}
+			.tag {
+				background: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+				padding: 0.2em 0.6em;
+				border-radius: 4px;
+				font-size: 0.85em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="title">
+						<h1>{title}</h1>
+						<p>{description}</p>
+						{repo && <p class="meta"><a href={repo} target="_blank">View on GitHub</a></p>}
+						{tags.length > 0 && (
+							<div class="tags">
+								{tags.map((tag) => <span class="tag">{tag}</span>)}
+							</div>
+						)}
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

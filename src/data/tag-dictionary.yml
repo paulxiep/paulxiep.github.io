@@ -1,0 +1,14 @@
+- slug: astro
+  label: "Astro"
+- slug: typescript
+  label: "TypeScript"
+- slug: rust
+  label: "Rust"
+- slug: wasm
+  label: "WebAssembly"
+- slug: ml
+  label: "Machine Learning"
+- slug: python
+  label: "Python"
+- slug: algorithms
+  label: "Algorithms"
