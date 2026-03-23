@@ -1,0 +1,83 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { demos, getDemoUrl } from '../../data/demos';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Demos - ${SITE_TITLE}`} description="Interactive demos." />
+		<style>
+			main {
+				width: 960px;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				width: calc(50% - 1rem);
+			}
+			ul li a {
+				display: block;
+				text-decoration: none;
+				padding: 1em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				transition: 0.2s ease;
+			}
+			ul li a:hover {
+				box-shadow: var(--box-shadow);
+			}
+			.title {
+				margin: 0;
+				color: rgb(var(--black));
+				line-height: 1.2;
+			}
+			.description {
+				margin: 0.5em 0 0;
+				color: rgb(var(--gray));
+				font-size: 0.9em;
+			}
+			.preview {
+				width: 100%;
+				border-radius: 4px;
+				margin-bottom: 0.5em;
+			}
+			@media (max-width: 720px) {
+				ul li {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Demos</h1>
+			<section>
+				<ul>
+					{
+						demos.map((demo) => (
+							<li>
+								<a href={`/demos/${demo.slug}/`}>
+									{demo.image && <img class="preview" src={demo.image} alt={demo.title} />}
+									<h4 class="title">{demo.title}</h4>
+									{demo.description && <p class="description">{demo.description}</p>}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
