@@ -1,6 +1,8 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { githubProjectsLoader } from './lib/github-projects-loader';
+import { githubDemosLoader } from './lib/github-demos-loader';
 
 const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
@@ -17,7 +19,7 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-	loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
+	loader: githubProjectsLoader(),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
@@ -29,4 +31,14 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects };
+const demos = defineCollection({
+	loader: githubDemosLoader(),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		url: z.string().url(),
+		image: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, projects, demos };

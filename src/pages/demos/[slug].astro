@@ -2,17 +2,19 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { demos, getDemoUrl } from '../../data/demos';
+import { getCollection } from 'astro:content';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+	const demos = await getCollection('demos');
 	return demos.map((demo) => ({
-		params: { slug: demo.slug },
+		params: { slug: demo.id },
 		props: demo,
 	}));
 }
 
-const { title, slug } = Astro.props;
-const iframeUrl = getDemoUrl(Astro.props);
+const demo = Astro.props;
+const title = demo.data.title;
+const iframeUrl = demo.data.url;
 ---
 
 <html lang="en">
