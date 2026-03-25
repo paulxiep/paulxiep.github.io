@@ -4,6 +4,10 @@ const today = new Date();
 
 <footer>
 	&copy; {today.getFullYear()} Paul X. All rights reserved.
+	<div class="legal-links">
+		<a href="/privacy">Privacy Policy</a>
+		<a href="/terms">Terms of Service</a>
+	</div>
 	<div class="social-links">
 		<a href="https://github.com/paulxiep" target="_blank">
 			<span class="sr-only">Paul X on GitHub</span>
@@ -22,6 +26,20 @@ const today = new Date();
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	.legal-links {
+		display: flex;
+		justify-content: center;
+		gap: 1.5em;
+		margin-top: 0.8em;
+		font-size: 0.875em;
+	}
+	.legal-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+	}
+	.legal-links a:hover {
+		color: rgb(var(--gray-dark));
 	}
 	.social-links {
 		display: flex;
