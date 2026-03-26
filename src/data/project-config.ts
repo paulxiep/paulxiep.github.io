@@ -25,7 +25,7 @@ export interface ProjectConfig {
  * Demo pages are auto-created for repos that have a GitHub "homepage" URL set.
  */
 export const projectRepos: ProjectConfig[] = [
-	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot' },
+	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
 	{ repo: 'quant-trading-gym', sortOrder: 2, featured: true },
 	{ repo: 'invoice-parse', sortOrder: 3, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
 	{ repo: 'portfolio', sortOrder: 4, featured: false, title: 'Old Portfolio (2023)' },
