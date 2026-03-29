@@ -33,30 +33,6 @@ const projects = (await getCollection('projects'))
 				color: rgb(var(--gray));
 				font-size: 1.1em;
 			}
-			.resume-link {
-				display: inline-block;
-				margin-top: 1em;
-				padding: 0.6em 1.5em;
-				background: var(--accent);
-				color: white;
-				text-decoration: none;
-				border-radius: 6px;
-				font-weight: 700;
-				transition: background 0.2s;
-			}
-			.resume-link:hover {
-				background: var(--accent-dark);
-				color: white;
-			}
-			.resume-link.disabled {
-				background: rgb(var(--gray-light));
-				color: rgb(var(--gray));
-				cursor: not-allowed;
-			}
-			.resume-link.disabled:hover {
-				background: rgb(var(--gray-light));
-				color: rgb(var(--gray));
-			}
 			section {
 				margin-bottom: 3em;
 			}
@@ -102,7 +78,7 @@ const projects = (await getCollection('projects'))
 			<div class="hero">
 				<h1>Paul X</h1>
 				<p>{SITE_DESCRIPTION}</p>
-				<span class="resume-link disabled">Download Resume (Coming Soon)</span>
+	
 			</div>
 
 			{projects.length > 0 && (

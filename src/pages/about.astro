@@ -1,15 +1,66 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Dummy for now"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Something here
-	</p>
-</Layout>
+<html lang="en">
+	<head>
+		<BaseHead title="About Me" description="About Paul Rachapong Chirarattananon." />
+		<style>
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.prose h1 {
+				text-align: center;
+				margin-bottom: 0.5em;
+			}
+			.prose h2 {
+				border-bottom: 1px solid rgb(var(--gray-light));
+				padding-bottom: 0.3em;
+			}
+.contact-links {
+				list-style: none;
+				padding: 0;
+				display: flex;
+				gap: 1.5em;
+				flex-wrap: wrap;
+			}
+			.contact-links a {
+				text-decoration: none;
+			}
+			.resume-link {
+				display: inline-block;
+				margin-top: 1em;
+				padding: 0.6em 1.5em;
+				background: var(--accent);
+				color: white;
+				text-decoration: none;
+				border-radius: 6px;
+				font-weight: 700;
+				transition: background 0.2s;
+			}
+			.resume-link:hover {
+				background: var(--accent-dark);
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<div class="prose">
+				<h1>About Me</h1>
+
+				<p><em>More about me coming soon.</em></p>
+
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
