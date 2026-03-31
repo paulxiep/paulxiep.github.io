@@ -334,22 +334,22 @@ export default defineConfig({
 ### Phase 1: Foundation + Content Pipeline
 Infrastructure, content schemas, and basic layouts — enough to start writing blog posts and project pages immediately.
 
-- [ ] Scaffold Astro project inside Docker (blog template, TS strict)
-- [ ] Add integrations: mdx, tailwind (via Docker)
-- [ ] Move `CNAME` to `public/CNAME`, delete old `index.html`
-- [ ] Create `Dockerfile` and `docker-compose.yml`
-- [ ] Create `scripts/` (dev.sh, build.sh, shell.sh)
-- [ ] Configure `astro.config.mjs` with `site: 'https://paulxie.com'`
-- [ ] Set up GitHub Actions deploy workflow
-- [ ] Define blog content collection schema (tags, no category field)
-- [ ] Define projects content collection schema
-- [ ] Create basic blog post layout (renders markdown with title/date/tags)
-- [ ] Create basic project page layout (renders markdown with title/description/repo link)
-- [ ] Create blog list page (`/blog/` — lists all posts)
-- [ ] Create projects list page (`/projects/` — lists all projects)
-- [ ] Create minimal landing page (`/` — links to blog and projects)
-- [ ] Create tag dictionary (`src/data/tag-dictionary.yml`) with initial tags
-- [ ] Verify: dev server works, can add .md files and see them rendered, deploys to GitHub Pages
+- [x] Scaffold Astro project inside Docker (blog template, TS strict)
+- [x] Add integrations: mdx, tailwind (via Docker) *(mdx done; using custom CSS instead of Tailwind)*
+- [x] Move `CNAME` to `public/CNAME`, delete old `index.html`
+- [x] Create `Dockerfile` and `docker-compose.yml`
+- [x] Create `scripts/` (dev.sh, build.sh, shell.sh)
+- [x] Configure `astro.config.mjs` with `site: 'https://paulxie.com'`
+- [x] Set up GitHub Actions deploy workflow
+- [x] Define blog content collection schema (tags, no category field)
+- [x] Define projects content collection schema
+- [x] Create basic blog post layout (renders markdown with title/date/tags)
+- [x] Create basic project page layout (renders markdown with title/description/repo link)
+- [x] Create blog list page (`/blog/` — lists all posts)
+- [x] Create projects list page (`/projects/` — lists all projects)
+- [x] Create minimal landing page (`/` — links to blog and projects)
+- [x] Create tag dictionary (`src/data/tag-dictionary.yml`) with initial tags
+- [x] Verify: dev server works, can add .md files and see them rendered, deploys to GitHub Pages
 
 After Phase 1, you can start writing content by dropping `.md`/`.mdx` files into `src/content/blog/` and `src/content/projects/`.
 
@@ -359,13 +359,13 @@ After Phase 1, you can start writing content by dropping `.md`/`.mdx` files into
 - [ ] Add tag filtering to blog list page
 - [ ] Create tag pages (`/blog/tags/[tag]/`)
 - [ ] Create category pages (`/blog/category/[cat]/`)
-- [ ] Add RSS feed (`@astrojs/rss`)
+- [x] Add RSS feed (`@astrojs/rss`)
 - [ ] Style prose with Tailwind typography
 
 ### Phase 3: Portfolio Enhancements
-- [ ] Build GitHub API fetch in project list page (build-time auto-populate)
-- [ ] Create project card component (styled)
-- [ ] Build landing page with highlights from blog + projects
+- [x] Build GitHub API fetch in project list page (build-time auto-populate)
+- [x] Create project card component (styled)
+- [x] Build landing page with highlights from blog + projects
 
 ### Phase 4: Algorithm Demo
 - [ ] Set up Cloudflare Worker project (`wrangler init`) in `/worker`
@@ -373,14 +373,14 @@ After Phase 1, you can start writing content by dropping `.md`/`.mdx` files into
 - [ ] Add worker service to Docker Compose
 - [ ] Build demo UI component (vanilla TS + WASM)
 - [ ] Implement hybrid client: remote → local fallback
-- [ ] Create demo page(s) under `/demos/`
+- [x] Create demo page(s) under `/demos/` *(routes exist, iframe wrapper for external demos)*
 - [ ] Wire up environment variable for Worker URL
 
 ### Phase 5: Polish
 - [ ] Dark mode toggle
-- [ ] SEO: meta tags, Open Graph, sitemap
+- [x] SEO: meta tags, Open Graph, sitemap *(BaseHead.astro has OG tags, @astrojs/sitemap integrated)*
 - [ ] 404 page
-- [ ] Navigation and mobile menu
+- [x] Navigation and mobile menu *(Header.astro has responsive nav, no hamburger menu yet)*
 - [ ] Lighthouse audit (aim for 95+ across the board)
 - [ ] README for the repo itself
 
