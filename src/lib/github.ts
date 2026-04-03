@@ -28,7 +28,12 @@ export async function fetchRepo(
 	const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
 		headers: headers(token),
 	});
-	if (!res.ok) throw new Error(`GitHub API error for ${key}: ${res.status} ${res.statusText}`);
+	if (!res.ok) {
+		console.warn(`GitHub API error for ${key}: ${res.status} ${res.statusText}, using fallback`);
+		const fallback: GitHubRepo = { name: repo, full_name: key, description: null, html_url: `https://github.com/${key}`, homepage: null, topics: [], default_branch: 'main', pushed_at: '' };
+		repoCache.set(key, fallback);
+		return fallback;
+	}
 
 	const data = (await res.json()) as GitHubRepo;
 	repoCache.set(key, data);
@@ -52,7 +57,10 @@ export async function fetchReadme(
 		headers: { ...headers(token), Accept: 'application/vnd.github.raw+json' },
 	});
 	if (res.status === 404) return null;
-	if (!res.ok) throw new Error(`GitHub API error fetching README for ${owner}/${repo}: ${res.status}`);
+	if (!res.ok) {
+		console.warn(`GitHub API error fetching README for ${owner}/${repo}: ${res.status}, skipping`);
+		return null;
+	}
 
 	const markdown = await res.text();
 	return rewriteImageUrls(markdown, owner, repo);

@@ -1,7 +1,10 @@
 categories:
-  - slug: reflection
-    label: "Reflection"
-    tags: [reflection, paulxie]
+  - slug: paulxie
+    label: "Paul Xie"
+    tags: [paulxie]
+  - slug: industry
+    label: "Industry"
+    tags: [fashion, fashiontech]
 
 # Override display labels for tags where the capitalized slug isn't right.
 # Tags not listed here default to capitalized slug (e.g., rust → Rust).
@@ -9,3 +12,4 @@ tagLabels:
   ml: "Machine Learning"
   wasm: "WebAssembly" 
   paulxie: "Paul Xie"
+  fashiontech: "Fashion Tech"

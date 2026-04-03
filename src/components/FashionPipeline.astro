@@ -1,0 +1,211 @@
+---
+// FashionPipeline.astro
+// Usage: <FashionPipeline />
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["po-root", className]}>
+  <svg width="100%" viewBox="0 0 680 580" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="po-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <g class="po-stage">
+      <rect x="230" y="30" width="220" height="44" rx="8"/>
+      <text x="340" y="52" text-anchor="middle" dominant-baseline="central" class="po-label">Concept & design</text>
+    </g>
+
+    <line x1="340" y1="74" x2="340" y2="110" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <rect x="78" y="110" width="524" height="190" rx="16" class="po-loop-border"/>
+    <text x="340" y="134" text-anchor="middle" dominant-baseline="central" class="po-loop-title">Technical design</text>
+
+    <g class="po-inner po-inner--teal">
+      <rect x="108" y="152" width="140" height="56" rx="8"/>
+      <text x="178" y="172" text-anchor="middle" dominant-baseline="central" class="po-inner-label">Graded spec</text>
+      <text x="178" y="192" text-anchor="middle" dominant-baseline="central" class="po-inner-sub">POMs per size</text>
+    </g>
+
+    <line x1="248" y1="180" x2="268" y2="180" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <g class="po-inner po-inner--teal">
+      <rect x="268" y="152" width="140" height="56" rx="8"/>
+      <text x="338" y="172" text-anchor="middle" dominant-baseline="central" class="po-inner-label">Pattern</text>
+      <text x="338" y="192" text-anchor="middle" dominant-baseline="central" class="po-inner-sub">Hit target POMs</text>
+    </g>
+
+    <line x1="408" y1="180" x2="428" y2="180" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <g class="po-inner po-inner--coral">
+      <rect x="428" y="152" width="140" height="56" rx="8"/>
+      <text x="498" y="172" text-anchor="middle" dominant-baseline="central" class="po-inner-label">Validation</text>
+      <text x="498" y="192" text-anchor="middle" dominant-baseline="central" class="po-inner-sub">Fit across sizes</text>
+    </g>
+
+    <path d="M 498 208 C 498 274, 178 274, 178 208" fill="none" class="po-feedback" marker-end="url(#po-arrow)"/>
+
+    <text x="338" y="279" text-anchor="middle" dominant-baseline="central" class="po-feedback-label">↻ Until all sizes hit targets</text>
+
+    <line x1="338" y1="300" x2="338" y2="340" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <g class="po-nesting">
+      <rect x="230" y="340" width="220" height="56" rx="8"/>
+      <text x="340" y="360" text-anchor="middle" dominant-baseline="central" class="po-nesting-label">Nesting</text>
+      <text x="340" y="380" text-anchor="middle" dominant-baseline="central" class="po-nesting-sub">Marker making</text>
+    </g>
+
+    <line x1="340" y1="396" x2="340" y2="436" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <g class="po-stage">
+      <rect x="230" y="436" width="220" height="44" rx="8"/>
+      <text x="340" y="458" text-anchor="middle" dominant-baseline="central" class="po-label">Manufacturing</text>
+    </g>
+
+    <line x1="340" y1="480" x2="340" y2="510" class="po-arr" marker-end="url(#po-arrow)"/>
+
+    <g class="po-stage">
+      <rect x="230" y="510" width="220" height="44" rx="8"/>
+      <text x="340" y="532" text-anchor="middle" dominant-baseline="central" class="po-label">Distribution</text>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .po-root {
+    --po-gray-fill: #E8EBF0;
+    --po-gray-stroke: #9BA3B5;
+    --po-gray-text: #222939;
+    --po-teal-fill: #E8ECFF;
+    --po-teal-stroke: #5A6BFF;
+    --po-teal-text: #000D8A;
+    --po-teal-sub: #1A2BCC;
+    --po-coral-fill: #FFF5E6;
+    --po-coral-stroke: #E0A030;
+    --po-coral-text: #6B4A00;
+    --po-coral-sub: #8A6200;
+    --po-purple-fill: #EDEAFF;
+    --po-purple-stroke: #8B7FE0;
+    --po-purple-text: #2D2480;
+    --po-purple-sub: #4840A8;
+    --po-purple-border: #6B60D0;
+    --po-purple-title: #4840A8;
+    --po-feedback: #B8780A;
+    --po-feedback-label: #7A5000;
+    --po-arr: #8892A8;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .po-root {
+      --po-gray-fill: #1E2230;
+      --po-gray-stroke: #3D4455;
+      --po-gray-text: #C8CDD8;
+      --po-teal-fill: #0D1545;
+      --po-teal-stroke: #3D50E0;
+      --po-teal-text: #A8B4FF;
+      --po-teal-sub: #7B8EFF;
+      --po-coral-fill: #3A2A08;
+      --po-coral-stroke: #C89020;
+      --po-coral-text: #F0D080;
+      --po-coral-sub: #E0B850;
+      --po-purple-fill: #1E1850;
+      --po-purple-stroke: #6B60D0;
+      --po-purple-text: #C0BAFF;
+      --po-purple-sub: #9A92E8;
+      --po-purple-border: #8B7FE0;
+      --po-purple-title: #C0BAFF;
+      --po-feedback: #E0A030;
+      --po-feedback-label: #F0D080;
+      --po-arr: #8892A8;
+    }
+  }
+
+  .po-stage rect {
+    fill: var(--po-gray-fill);
+    stroke: var(--po-gray-stroke);
+    stroke-width: 0.5px;
+  }
+
+  .po-label {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--po-gray-text);
+  }
+
+  .po-arr {
+    stroke: var(--po-arr);
+    stroke-width: 1.5px;
+  }
+
+  .po-loop-border {
+    fill: none;
+    stroke: var(--po-purple-border);
+    stroke-width: 1.5px;
+    stroke-dasharray: 6 4;
+  }
+
+  .po-loop-title {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--po-purple-title);
+  }
+
+  .po-inner rect { stroke-width: 0.5px; }
+  .po-inner--teal rect { fill: var(--po-teal-fill); stroke: var(--po-teal-stroke); }
+  .po-inner--coral rect { fill: var(--po-coral-fill); stroke: var(--po-coral-stroke); }
+
+  .po-inner-label {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .po-inner-sub {
+    font-family: inherit;
+    font-size: 12px;
+  }
+
+  .po-inner--teal .po-inner-label { fill: var(--po-teal-text); }
+  .po-inner--teal .po-inner-sub   { fill: var(--po-teal-sub); }
+  .po-inner--coral .po-inner-label { fill: var(--po-coral-text); }
+  .po-inner--coral .po-inner-sub   { fill: var(--po-coral-sub); }
+
+  .po-nesting rect {
+    fill: var(--po-purple-fill);
+    stroke: var(--po-purple-stroke);
+    stroke-width: 0.5px;
+  }
+
+  .po-nesting-label {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    fill: var(--po-purple-text);
+  }
+
+  .po-nesting-sub {
+    font-family: inherit;
+    font-size: 12px;
+    fill: var(--po-purple-sub);
+  }
+
+  .po-feedback {
+    stroke: var(--po-feedback);
+    stroke-width: 1px;
+    stroke-dasharray: 4 3;
+  }
+
+  .po-feedback-label {
+    font-family: inherit;
+    font-size: 12px;
+    fill: var(--po-feedback-label);
+  }
+</style>
