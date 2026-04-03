@@ -16,7 +16,7 @@ const projects = (await getCollection('projects')).sort(
 		<BaseHead title={`Projects - ${SITE_TITLE}`} description="Portfolio of projects." />
 		<style>
 			main {
-				width: 960px;
+				max-width: min(1080px, calc(100% - 2em));
 			}
 			ul {
 				display: flex;

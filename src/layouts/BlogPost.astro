@@ -5,10 +5,19 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import categoryMapping from '../data/category-mapping.json';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+const tagLabels = categoryMapping.tagLabels as Record<string, string>;
+const tagToCategory = categoryMapping.tagToCategory as Record<string, string>;
+
+// Find the first matching category for this post
+const postCategory = tags?.map((t) => tagToCategory[t]).find(Boolean);
+const categoryInfo = postCategory
+	? categoryMapping.categories.find((c) => c.slug === postCategory)
+	: null;
 ---
 
 <html lang="en">
@@ -30,15 +39,14 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				max-width: min(1080px, calc(100% - 2em));
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+				margin-bottom: 0.5em;
+				padding: 0.5em 0;
 				text-align: center;
 				line-height: 1;
 			}
@@ -59,12 +67,31 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				flex-wrap: wrap;
 				margin: 0.5em 0;
 			}
+			.category {
+				margin: 0.5em 0;
+			}
+			.category-link {
+				font-size: 0.9em;
+				font-weight: 700;
+				text-decoration: none;
+				color: var(--accent);
+			}
+			.category-link:hover {
+				text-decoration: underline;
+			}
 			.tag {
+				display: inline-block;
 				background: rgb(var(--gray-light));
 				color: rgb(var(--gray-dark));
 				padding: 0.2em 0.6em;
 				border-radius: 4px;
 				font-size: 0.85em;
+				text-decoration: none;
+				transition: background 0.2s;
+			}
+			.tag:hover {
+				background: rgb(var(--gray));
+				color: white;
 			}
 		</style>
 	</head>
@@ -89,9 +116,20 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 							}
 						</div>
 						<h1>{title}</h1>
+						{categoryInfo && (
+							<div class="category">
+								<a href={`/blog/category/${categoryInfo.slug}/`} class="category-link">
+									{categoryInfo.label}
+								</a>
+							</div>
+						)}
 						{tags && tags.length > 0 && (
 							<div class="tags">
-								{tags.map((tag) => <span class="tag">{tag}</span>)}
+								{tags.map((tag) => (
+									<a href={`/blog/tags/${tag}/`} class="tag">
+										{tagLabels[tag] || tag}
+									</a>
+								))}
 							</div>
 						)}
 						<hr />

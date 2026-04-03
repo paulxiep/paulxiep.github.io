@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import PostList from '../../../components/PostList.astro';
+import categoryMapping from '../../../data/category-mapping.json';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('blog'))
+		.filter((p) => !p.data.draft)
+		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+	return categoryMapping.categories
+		.map((cat) => {
+			const matched = posts.filter((p) =>
+				p.data.tags.some((t: string) => cat.tags.includes(t))
+			);
+			return { params: { cat: cat.slug }, props: { posts: matched, category: cat } };
+		})
+		.filter((entry) => entry.props.posts.length > 0);
+}
+
+const { posts, category } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Category: ${category.label}`} description={`Blog posts in the ${category.label} category`} />
+		<style>
+			main {
+				max-width: min(1080px, calc(100% - 2em));
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.page-heading {
+				margin-bottom: 0.5em;
+			}
+			.back-link {
+				display: inline-block;
+				margin-bottom: 2em;
+				font-size: 0.9em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1 class="page-heading">{category.label}</h1>
+			<a href="/blog/" class="back-link">&larr; All posts</a>
+			<PostList posts={posts} />
+		</main>
+		<Footer />
+	</body>
+</html>

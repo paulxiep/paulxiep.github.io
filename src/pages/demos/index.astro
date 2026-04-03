@@ -14,7 +14,7 @@ const demos = await getCollection('demos');
 		<BaseHead title={`Demos - ${SITE_TITLE}`} description="Interactive demos." />
 		<style>
 			main {
-				width: 960px;
+				max-width: min(1080px, calc(100% - 2em));
 			}
 			ul {
 				display: flex;

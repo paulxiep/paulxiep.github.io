@@ -26,19 +26,10 @@ This site serves three roles from a single Astro project:
 │  │ /projects/ │ │ /blog/           │ │
 │  └───────────┘ └──────────────────┘ │
 │  ┌──────────────────────────────────┐│
-│  │ Demo UI (vanilla TS / WASM)    ││
 │  │ /demos/                         ││
-│  │  → tries Cloudflare Worker      ││
-│  │  → falls back to client mock    ││
+│  │  → iframe embeds external demos ││
+│  │  → each demo lives in own repo  ││
 │  └──────────────────────────────────┘│
-└──────────────────┬──────────────────┘
-                   │ fetch()
-                   ▼
-┌─────────────────────────────────────┐
-│  Cloudflare Worker (free tier)      │
-│  100K requests/day                  │
-│  Proprietary algorithm lives here   │
-│  Rust WASM                          │
 └─────────────────────────────────────┘
 ```
 
@@ -72,7 +63,7 @@ This site serves three roles from a single Astro project:
 | Styling | Tailwind + @tailwindcss/typography | Utility classes for layout, typography plugin for prose/markdown |
 | Content | Astro Content Collections (MD/MDX) | Type-safe frontmatter, file-based, git-friendly |
 | Hosting | GitHub Pages via Actions | Free, auto-deploys on push to main |
-| Backend | Cloudflare Worker (Rust WASM) | Free tier (100K req/day), algorithm never leaves server |
+| Demos | Iframe embedding | Each demo lives in its own repo; Astro just frames the deployed URL |
 | Dev env | Docker Compose | Reproducible, no local Node/npm required |
 
 ---
@@ -190,50 +181,9 @@ const projects = defineCollection({
 
 ---
 
-## Hybrid Demo Pattern
+## Demo Approach
 
-```typescript
-// src/lib/algorithm-client.ts
-
-interface AlgorithmInput { /* your input shape */ }
-interface AlgorithmOutput { /* your output shape */ }
-
-const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
-
-// Full-fidelity: calls Cloudflare Worker
-async function runRemote(input: AlgorithmInput): Promise<AlgorithmOutput> {
-  const res = await fetch(WORKER_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
-  });
-  if (!res.ok) throw new Error('Worker unavailable');
-  return res.json();
-}
-
-// Simplified: runs entirely client-side, no secrets exposed
-function runLocal(input: AlgorithmInput): AlgorithmOutput {
-  // Deliberately simplified version of the algorithm
-  // Good enough to demonstrate the concept, not the real IP
-  return { /* mock/simplified result */ };
-}
-
-// Hybrid: try remote, fall back to local
-export async function runAlgorithm(input: AlgorithmInput): Promise<{
-  result: AlgorithmOutput;
-  source: 'remote' | 'local';
-}> {
-  try {
-    const result = await runRemote(input);
-    return { result, source: 'remote' };
-  } catch {
-    const result = runLocal(input);
-    return { result, source: 'local' };
-  }
-}
-```
-
-Show a subtle indicator in the UI: "✓ Full precision" vs "⚡ Preview mode" so users know what they're seeing.
+Demos live in their own repos (e.g., Streamlit, Gradio, standalone frontends) and are embedded in the Astro site via iframe. The demos loader pulls URLs from project config or GitHub homepage fields. No Astro-side demo logic or Cloudflare Worker needed.
 
 ---
 
@@ -279,8 +229,6 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true        # Required for Windows Docker hot reload
 ```
-
-Worker service added in Phase 4 when demos are implemented.
 
 ### Shell Scripts (`scripts/`)
 
@@ -354,29 +302,21 @@ Infrastructure, content schemas, and basic layouts — enough to start writing b
 After Phase 1, you can start writing content by dropping `.md`/`.mdx` files into `src/content/blog/` and `src/content/projects/`.
 
 ### Phase 2: Blog Enhancements
-- [ ] Create category config (`src/data/categories.yml`)
-- [ ] Write category build script (tag→category mapping)
-- [ ] Add tag filtering to blog list page
-- [ ] Create tag pages (`/blog/tags/[tag]/`)
-- [ ] Create category pages (`/blog/category/[cat]/`)
+- [x] Create category config (`src/data/categories.yml`)
+- [x] Write category build script (tag→category mapping) *(pre-build Node script outputs `category-mapping.json`)*
+- [x] Add tag filtering to blog list page *(category buttons + tag search with multi-select, OR filtering)*
+- [x] Create tag pages (`/blog/tags/[tag]/`)
+- [x] Create category pages (`/blog/category/[cat]/`)
 - [x] Add RSS feed (`@astrojs/rss`)
-- [ ] Style prose with Tailwind typography
+- [x] Style prose with custom CSS *(polished headings, code blocks, blockquotes, lists, links — no Tailwind)*
 
 ### Phase 3: Portfolio Enhancements
 - [x] Build GitHub API fetch in project list page (build-time auto-populate)
 - [x] Create project card component (styled)
 - [x] Build landing page with highlights from blog + projects
+- [x] Create demo page(s) under `/demos/` *(iframe wrapper embedding external demo URLs)*
 
-### Phase 4: Algorithm Demo
-- [ ] Set up Cloudflare Worker project (`wrangler init`) in `/worker`
-- [ ] Implement algorithm endpoint in Worker (Rust WASM)
-- [ ] Add worker service to Docker Compose
-- [ ] Build demo UI component (vanilla TS + WASM)
-- [ ] Implement hybrid client: remote → local fallback
-- [x] Create demo page(s) under `/demos/` *(routes exist, iframe wrapper for external demos)*
-- [ ] Wire up environment variable for Worker URL
-
-### Phase 5: Polish
+### Phase 4: Polish
 - [ ] Dark mode toggle
 - [x] SEO: meta tags, Open Graph, sitemap *(BaseHead.astro has OG tags, @astrojs/sitemap integrated)*
 - [ ] 404 page
@@ -401,11 +341,6 @@ bash scripts/dev.sh                   # start dev server (localhost:4321)
 bash scripts/build.sh                 # production build
 bash scripts/shell.sh                 # shell into container
 
-# Cloudflare Worker (Phase 4+)
-cd worker
-npx wrangler dev                     # local worker dev
-npx wrangler deploy                  # deploy to cloudflare
-
 # Content
 # Just create .md/.mdx files in src/content/blog/ or src/content/projects/
 # Astro picks them up automatically
@@ -418,5 +353,3 @@ npx wrangler deploy                  # deploy to cloudflare
 - Astro docs: https://docs.astro.build
 - Astro GitHub Pages guide: https://docs.astro.build/en/guides/deploy/github/
 - Content Collections: https://docs.astro.build/en/guides/content-collections/
-- Cloudflare Workers: https://developers.cloudflare.com/workers/
-- Wrangler CLI: https://developers.cloudflare.com/workers/wrangler/

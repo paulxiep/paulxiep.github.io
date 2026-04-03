@@ -19,8 +19,7 @@ const { title, description, repo, tags } = Astro.props;
 				margin: 0;
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				max-width: min(1080px, calc(100% - 2em));
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));

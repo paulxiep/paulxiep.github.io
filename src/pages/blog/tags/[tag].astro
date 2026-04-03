@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import PostList from '../../../components/PostList.astro';
+import categoryMapping from '../../../data/category-mapping.json';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('blog'))
+		.filter((p) => !p.data.draft)
+		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+	const tagMap = new Map<string, typeof posts>();
+	for (const post of posts) {
+		for (const tag of post.data.tags) {
+			if (!tagMap.has(tag)) tagMap.set(tag, []);
+			tagMap.get(tag)!.push(post);
+		}
+	}
+
+	return Array.from(tagMap.entries()).map(([tag, posts]) => ({
+		params: { tag },
+		props: { posts, tag },
+	}));
+}
+
+const { posts, tag } = Astro.props;
+const tagLabels = categoryMapping.tagLabels as Record<string, string>;
+const label = tagLabels[tag] || tag;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Posts tagged: ${label}`} description={`Blog posts tagged with ${label}`} />
+		<style>
+			main {
+				max-width: min(1080px, calc(100% - 2em));
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.page-heading {
+				margin-bottom: 0.5em;
+			}
+			.back-link {
+				display: inline-block;
+				margin-bottom: 2em;
+				font-size: 0.9em;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1 class="page-heading">Posts tagged: {label}</h1>
+			<a href="/blog/" class="back-link">&larr; All posts</a>
+			<PostList posts={posts} />
+		</main>
+		<Footer />
+	</body>
+</html>

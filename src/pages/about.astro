@@ -9,8 +9,7 @@ import Header from '../components/Header.astro';
 		<BaseHead title="About Me" description="About Paul Rachapong Chirarattananon." />
 		<style>
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				max-width: min(1080px, calc(100% - 2em));
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
@@ -56,9 +55,7 @@ import Header from '../components/Header.astro';
 		<main>
 			<div class="prose">
 				<h1>About Me</h1>
-
-				<p><em>More about me coming soon.</em></p>
-
+				<p>I'm Paul, an AI engineer, Prototyping Engineer, and System Architect.</p>
 			</div>
 		</main>
 		<Footer />

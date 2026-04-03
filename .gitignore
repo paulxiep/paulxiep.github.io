@@ -13,6 +13,9 @@ yarn-error.log*
 pnpm-debug.log*
 
 
+# generated data
+src/data/category-mapping.json
+
 # environment variables
 .env
 .env.production

@@ -1,0 +1,319 @@
+---
+import categoryMapping from '../data/category-mapping.json';
+
+interface Props {
+	postCount: number;
+}
+
+const { postCount } = Astro.props;
+const { categories, tagLabels } = categoryMapping;
+---
+
+{postCount >= 2 && (
+	<nav class="tag-filter" aria-label="Filter posts">
+		<div class="filter-row">
+			<button class="filter-btn active" data-filter="all">All</button>
+			{categories.map((cat) => (
+				<button class="filter-btn filter-category" data-filter-category={cat.slug} data-filter-tags={cat.tags.join(',')}>
+					{cat.label}
+				</button>
+			))}
+		</div>
+		<div class="filter-row tag-search-row">
+			<div class="selected-tags"></div>
+			<input
+				type="text"
+				class="tag-search"
+				placeholder="Search tags..."
+				autocomplete="off"
+				data-all-tags={JSON.stringify(tagLabels)}
+			/>
+			<div class="tag-suggestions" hidden></div>
+		</div>
+	</nav>
+)}
+
+<script>
+	function initFilter() {
+		const nav = document.querySelector('.tag-filter');
+		if (!nav) return;
+
+		const buttons = nav.querySelectorAll<HTMLButtonElement>('.filter-btn');
+		const items = document.querySelectorAll<HTMLLIElement>('ul li[data-tags]');
+		const searchInput = nav.querySelector<HTMLInputElement>('.tag-search');
+		const suggestions = nav.querySelector<HTMLDivElement>('.tag-suggestions');
+		const selectedContainer = nav.querySelector<HTMLDivElement>('.selected-tags');
+		if (!searchInput || !suggestions || !selectedContainer) return;
+
+		const tagLabels: Record<string, string> = JSON.parse(searchInput.dataset.allTags || '{}');
+		const tagEntries = Object.entries(tagLabels); // [slug, label][]
+		const selectedTags = new Set<string>();
+
+		function clearCategoryActive() {
+			buttons.forEach((b) => b.classList.remove('active'));
+		}
+
+		function setActive(btn: HTMLButtonElement) {
+			clearCategoryActive();
+			btn.classList.add('active');
+		}
+
+		function renderSelectedTags() {
+			selectedContainer.innerHTML = Array.from(selectedTags)
+				.map((slug) => `<span class="selected-tag" data-tag="${slug}">${tagLabels[slug] || slug}<button type="button" class="remove-tag" aria-label="Remove ${tagLabels[slug] || slug}">&times;</button></span>`)
+				.join('');
+		}
+
+		function applyTagFilter() {
+			clearCategoryActive();
+			if (selectedTags.size === 0) {
+				const allBtn = nav.querySelector<HTMLButtonElement>('[data-filter="all"]');
+				if (allBtn) allBtn.classList.add('active');
+				items.forEach((li) => { li.style.display = ''; });
+				history.replaceState(null, '', window.location.pathname);
+				return;
+			}
+			items.forEach((li) => {
+				const postTags = li.dataset.tags?.split(',') || [];
+				const match = Array.from(selectedTags).some((t) => postTags.includes(t));
+				li.style.display = match ? '' : 'none';
+			});
+			const params = new URLSearchParams();
+			selectedTags.forEach((t) => params.append('tag', t));
+			history.replaceState(null, '', `?${params.toString()}`);
+		}
+
+		function addTag(slug: string) {
+			if (selectedTags.has(slug)) return;
+			selectedTags.add(slug);
+			searchInput.value = '';
+			suggestions.hidden = true;
+			renderSelectedTags();
+			applyTagFilter();
+		}
+
+		function removeTag(slug: string) {
+			selectedTags.delete(slug);
+			renderSelectedTags();
+			applyTagFilter();
+		}
+
+		function clearTags() {
+			selectedTags.clear();
+			searchInput.value = '';
+			suggestions.hidden = true;
+			renderSelectedTags();
+		}
+
+		function filterByCategory(categoryTags: string[]) {
+			clearTags();
+			items.forEach((li) => {
+				const tags = li.dataset.tags?.split(',') || [];
+				const match = tags.some((t) => categoryTags.includes(t));
+				li.style.display = match ? '' : 'none';
+			});
+		}
+
+		// --- Tag search ---
+
+		searchInput.addEventListener('input', () => {
+			const query = searchInput.value.trim().toLowerCase();
+			if (!query) {
+				suggestions.hidden = true;
+				return;
+			}
+
+			const matches = tagEntries.filter(
+				([slug, label]) =>
+					!selectedTags.has(slug) &&
+					(slug.toLowerCase().includes(query) || label.toLowerCase().includes(query))
+			);
+
+			if (matches.length === 0) {
+				suggestions.hidden = true;
+				return;
+			}
+
+			suggestions.innerHTML = matches
+				.map(([slug, label]) => `<button type="button" class="suggestion" data-tag="${slug}">${label}</button>`)
+				.join('');
+			suggestions.hidden = false;
+		});
+
+		suggestions.addEventListener('click', (e) => {
+			const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.suggestion');
+			if (!btn || !btn.dataset.tag) return;
+			addTag(btn.dataset.tag);
+		});
+
+		// Remove tag pill
+		selectedContainer.addEventListener('click', (e) => {
+			const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.remove-tag');
+			if (!btn) return;
+			const pill = btn.parentElement as HTMLElement;
+			if (pill?.dataset.tag) removeTag(pill.dataset.tag);
+		});
+
+		// Close suggestions on outside click
+		document.addEventListener('click', (e) => {
+			if (!nav.contains(e.target as Node)) {
+				suggestions.hidden = true;
+			}
+		});
+
+		// --- Category buttons ---
+
+		nav.addEventListener('click', (e) => {
+			const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.filter-btn');
+			if (!btn) return;
+
+			setActive(btn);
+
+			if (btn.dataset.filter === 'all') {
+				clearTags();
+				items.forEach((li) => { li.style.display = ''; });
+				history.replaceState(null, '', window.location.pathname);
+			} else if (btn.dataset.filterCategory) {
+				const tags = btn.dataset.filterTags?.split(',') || [];
+				filterByCategory(tags);
+				history.replaceState(null, '', `?category=${btn.dataset.filterCategory}`);
+			}
+		});
+
+		// --- Restore from URL ---
+
+		function applyFromURL() {
+			const params = new URLSearchParams(window.location.search);
+			const tags = params.getAll('tag');
+			const cat = params.get('category');
+
+			if (tags.length > 0) {
+				tags.forEach((t) => { if (tagLabels[t]) selectedTags.add(t); });
+				renderSelectedTags();
+				applyTagFilter();
+				return;
+			}
+			if (cat) {
+				const btn = nav.querySelector<HTMLButtonElement>(`[data-filter-category="${cat}"]`);
+				if (btn) {
+					setActive(btn);
+					const catTags = btn.dataset.filterTags?.split(',') || [];
+					filterByCategory(catTags);
+					return;
+				}
+			}
+			const allBtn = nav.querySelector<HTMLButtonElement>('[data-filter="all"]');
+			if (allBtn) allBtn.classList.add('active');
+		}
+
+		applyFromURL();
+	}
+
+	initFilter();
+	document.addEventListener('astro:after-swap', initFilter);
+</script>
+
+<style>
+	.tag-filter {
+		margin-bottom: 2rem;
+	}
+	.filter-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		margin-bottom: 0.75em;
+		position: relative;
+	}
+	.filter-btn {
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray-dark));
+		border: none;
+		padding: 0.3em 0.8em;
+		border-radius: 4px;
+		font-size: 0.85em;
+		cursor: pointer;
+		font-family: inherit;
+		transition: background 0.2s, color 0.2s;
+	}
+	.filter-btn:hover {
+		background: rgb(var(--gray));
+		color: white;
+	}
+	.filter-btn.active {
+		background: var(--accent);
+		color: white;
+	}
+	.filter-category {
+		font-weight: 700;
+	}
+	.tag-search-row {
+		align-items: center;
+	}
+	.selected-tags {
+		display: contents;
+	}
+	.selected-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3em;
+		background: var(--accent);
+		color: white;
+		padding: 0.25em 0.6em;
+		border-radius: 4px;
+		font-size: 0.85em;
+	}
+	.remove-tag {
+		background: none;
+		border: none;
+		color: white;
+		cursor: pointer;
+		font-size: 1.1em;
+		line-height: 1;
+		padding: 0;
+		opacity: 0.7;
+	}
+	.remove-tag:hover {
+		opacity: 1;
+	}
+	.tag-search {
+		padding: 0.4em 0.8em;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 4px;
+		font-size: 0.85em;
+		font-family: inherit;
+		width: 200px;
+		color: rgb(var(--gray-dark));
+		background: white;
+	}
+	.tag-search:focus {
+		outline: none;
+		border-color: var(--accent);
+	}
+	.tag-suggestions {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		background: white;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 4px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+		min-width: 200px;
+		margin-top: 0.25em;
+	}
+	.tag-suggestions .suggestion {
+		display: block;
+		width: 100%;
+		text-align: left;
+		padding: 0.4em 0.8em;
+		border: none;
+		background: none;
+		font-size: 0.85em;
+		font-family: inherit;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+	}
+	.tag-suggestions .suggestion:hover {
+		background: rgb(var(--gray-light));
+	}
+</style>
