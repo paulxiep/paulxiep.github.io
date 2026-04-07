@@ -7,14 +7,15 @@ import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog'))
-	.filter((p) => !p.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+	.filter((p) => !p.data.draft && p.data.featured)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const projects = (await getCollection('projects'))
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.sortOrder - b.data.sortOrder)
 	.slice(0, 3);
+
+const demos = new Set((await getCollection('demos')).map((d) => d.id));
 ---
 
 <!doctype html>
@@ -47,15 +48,39 @@ const projects = (await getCollection('projects'))
 				font-size: 0.9em;
 			}
 			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
 				list-style: none;
 				padding: 0;
 				margin: 0;
 			}
 			ul li {
-				margin-bottom: 1em;
+				width: calc(50% - 1rem);
+			}
+			@media (max-width: 720px) {
+				ul li {
+					width: 100%;
+				}
 			}
 			ul li a {
 				text-decoration: none;
+			}
+			.project-header {
+				display: flex;
+				align-items: baseline;
+				gap: 0.5em;
+			}
+			.dot-sep {
+				color: rgb(var(--gray));
+			}
+			ul li .demo-link {
+				color: var(--accent);
+				text-decoration: underline;
+				font-size: 1.1em;
+			}
+			.demo-link:hover {
+				opacity: 0.8;
 			}
 			.post-title, .project-title {
 				margin: 0;
@@ -65,7 +90,7 @@ const projects = (await getCollection('projects'))
 				color: rgb(var(--gray));
 				font-size: 0.85em;
 			}
-			.project-desc {
+			.post-desc, .project-desc {
 				color: rgb(var(--gray));
 				font-size: 0.9em;
 				margin: 0.2em 0 0;
@@ -87,8 +112,18 @@ const projects = (await getCollection('projects'))
 					<ul>
 						{projects.map((project) => (
 							<li>
+								<div class="project-header">
+									<a href={`/projects/${project.id}/`}>
+										<h4 class="project-title">{project.data.title}</h4>
+									</a>
+									{demos.has(project.id) && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={`/demos/${project.id}/`} class="demo-link">Demo</a>
+										</>
+									)}
+								</div>
 								<a href={`/projects/${project.id}/`}>
-									<h4 class="project-title">{project.data.title}</h4>
 									<p class="project-desc">{project.data.description}</p>
 								</a>
 							</li>
@@ -100,12 +135,15 @@ const projects = (await getCollection('projects'))
 
 			{posts.length > 0 && (
 				<section>
-					<h2>Recent Posts</h2>
+					<h2>Featured Posts</h2>
 					<ul>
 						{posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
 									<h4 class="post-title">{post.data.title}</h4>
+									{post.data.description && (
+										<p class="post-desc">{post.data.description}</p>
+									)}
 									<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
 								</a>
 							</li>

@@ -8,6 +8,7 @@ interface Props {
 		id: string;
 		data: {
 			title: string;
+			description?: string;
 			pubDate: Date;
 			heroImage?: ImageMetadata;
 			tags?: string[];
@@ -28,6 +29,9 @@ const tagLabels = categoryMapping.tagLabels as Record<string, string>;
 						<Image width={720} height={360} src={post.data.heroImage} alt="" />
 					)}
 					<h4 class="title">{post.data.title}</h4>
+					{post.data.description && (
+						<p class="description">{post.data.description}</p>
+					)}
 					<p class="date">
 						<FormattedDate date={post.data.pubDate} />
 					</p>
@@ -73,6 +77,11 @@ const tagLabels = categoryMapping.tagLabels as Record<string, string>;
 		margin: 0;
 		color: rgb(var(--black));
 		line-height: 1;
+	}
+	.description {
+		margin: 0.2em 0 0;
+		color: rgb(var(--gray));
+		font-size: 0.9em;
 	}
 	.date {
 		margin: 0;
