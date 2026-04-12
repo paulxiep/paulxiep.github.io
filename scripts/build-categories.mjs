@@ -19,7 +19,7 @@ const labelOverrides = config.tagLabels || {};
 // Auto-generate label: use override, or capitalize the slug
 function tagLabel(slug) {
   if (labelOverrides[slug]) return labelOverrides[slug];
-  return slug.charAt(0).toUpperCase() + slug.slice(1);
+  return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
 // Build tag→category lookup and collect all known tags
