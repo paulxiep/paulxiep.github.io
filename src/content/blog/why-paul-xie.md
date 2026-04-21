@@ -3,7 +3,6 @@ title: 'Why Paul Xie?'
 description: 'Explanation of domain name choice'
 pubDate: '2026-04-03'
 tags: ['paul-xie']
-featured: true
 ---
 
 My name is Paul Rachapong Chirarattananon.

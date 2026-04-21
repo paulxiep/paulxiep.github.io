@@ -2,6 +2,9 @@ categories:
   - slug: industries
     label: "Industries"
     tags: [fashion, fashion-tech]
+  - slug: thinking
+    label: "Thinking"
+    tags: [intentionality, first-principles]
   - slug: system-design
     label: "System Design"
     tags: [system-architecture, software-architecture, design-patterns]
@@ -16,4 +19,5 @@ categories:
 # Tags not listed here default to capitalized slug (e.g., rust → Rust).
 tagLabels:
   ml: "Machine Learning"
-  wasm: "WebAssembly" 
+  wasm: "WebAssembly"
+  ai: "AI"

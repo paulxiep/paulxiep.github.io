@@ -13,11 +13,11 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 const tagLabels = categoryMapping.tagLabels as Record<string, string>;
 const tagToCategory = categoryMapping.tagToCategory as Record<string, string>;
 
-// Find the first matching category for this post
-const postCategory = tags?.map((t) => tagToCategory[t]).find(Boolean);
-const categoryInfo = postCategory
-	? categoryMapping.categories.find((c) => c.slug === postCategory)
-	: null;
+// Find all matching categories for this post
+const postCategorySlugs = [...new Set(tags?.map((t) => tagToCategory[t]).filter(Boolean))];
+const categoryInfos = postCategorySlugs
+	.map((slug) => categoryMapping.categories.find((c) => c.slug === slug))
+	.filter((c): c is (typeof categoryMapping.categories)[number] => Boolean(c));
 ---
 
 <html lang="en">
@@ -79,6 +79,10 @@ const categoryInfo = postCategory
 			.category-link:hover {
 				text-decoration: underline;
 			}
+			.category-sep {
+				font-size: 0.9em;
+				color: rgb(var(--gray));
+			}
 			.tag {
 				display: inline-block;
 				background: rgb(var(--gray-light));
@@ -116,11 +120,16 @@ const categoryInfo = postCategory
 							}
 						</div>
 						<h1>{title}</h1>
-						{categoryInfo && (
+						{categoryInfos.length > 0 && (
 							<div class="category">
-								<a href={`/blog/category/${categoryInfo.slug}/`} class="category-link">
-									{categoryInfo.label}
-								</a>
+								{categoryInfos.map((categoryInfo, i) => (
+									<>
+										{i > 0 && <span class="category-sep"> · </span>}
+										<a href={`/blog/category/${categoryInfo.slug}/`} class="category-link">
+											{categoryInfo.label}
+										</a>
+									</>
+								))}
 							</div>
 						)}
 						{tags && tags.length > 0 && (

@@ -5,7 +5,7 @@ pubDate: '2026-04-12'
 tags: ['system-architecture', 'software-architecture', 'design-pattern', 'first-principles']
 ---
 
-#### Definitions
+## Definitions
 
 System: a group of related parts that work together as a whole for a particular purpose. [Longman Dictionary](https://www.ldoceonline.com/dictionary/system)
 
@@ -16,7 +16,7 @@ Under that definition, the following are different levels of system view, and th
 - Software Architecture
 - System Architecture
 
-#### Thesis
+## Thesis
 
 With context primed, here's my contrarian take.
 
@@ -30,7 +30,7 @@ There's a difference. When students learn patterns first without having experien
 
 The opposite is problem-first, otherwise known as *First Principles* thinking, reasoning your way to a solution from the ground up, based on the actual shape of the problem in front of you. (99.99% it's not a nail)
 
-#### Case study
+## Case study
 
 The following will be a bit of self-promotion, because the discovery was what primed this post in the first place.
 
@@ -54,7 +54,7 @@ What emerged were (apparently) the correct structures, the right decisions, shap
 
 **"Exactly the problem and constraints that need to be satisfied"**
 
-#### Summary
+## Summary
 
 My take, and I'll acknowledge there are different types of minds and learners, is that there is an alternative to studying as a method of learning about architecture - one that is rooted in clear and penetrative thinking to see precisely what the problem needs. 
 
