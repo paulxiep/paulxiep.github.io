@@ -8,12 +8,9 @@ categories:
   - slug: system-design
     label: "System Design"
     tags: [system-architecture, software-architecture, design-patterns]
-  - slug: self
-    label: "Self"
-    tags: [paul-xie]
   - slug: languages
     label: "Languages"
-    tags: [poetry, translation]
+    tags: [poetry, translation, language]
 
 # Override display labels for tags where the capitalized slug isn't right.
 # Tags not listed here default to capitalized slug (e.g., rust → Rust).

@@ -2,7 +2,7 @@
 title: 'ฤาษีสอนสุดสาคร formal translation'
 description: 'A 200-year-old classic Thai poem I formal-translated years ago'
 pubDate: '2026-04-07'
-tags: ['poetry', 'translation']
+tags: ['poetry', 'translation', 'language']
 ---
 
 <style>
