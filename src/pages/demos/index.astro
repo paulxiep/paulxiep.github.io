@@ -5,7 +5,23 @@ import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 import { getCollection } from 'astro:content';
 
-const demos = await getCollection('demos');
+const iframeDemos = (await getCollection('demos')).map((d) => ({
+	id: d.id,
+	title: d.data.title,
+	description: d.data.description,
+	image: d.data.image as string | undefined,
+	href: `/demos/${d.id}/`,
+	external: false,
+}));
+const externalDemos = (await getCollection('externalProjects')).map((p) => ({
+	id: p.id,
+	title: p.data.title,
+	description: p.data.description,
+	image: undefined as string | undefined,
+	href: p.data.demoUrl,
+	external: true,
+}));
+const demos = [...iframeDemos, ...externalDemos];
 ---
 
 <!doctype html>
@@ -69,10 +85,13 @@ const demos = await getCollection('demos');
 					{
 						demos.map((demo) => (
 							<li>
-								<a href={`/demos/${demo.id}/`}>
-									{demo.data.image && <img class="preview" src={demo.data.image} alt={demo.data.title} />}
-									<h4 class="title">{demo.data.title}</h4>
-									{demo.data.description && <p class="description">{demo.data.description}</p>}
+								<a
+									href={demo.href}
+									{...(demo.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+								>
+									{demo.image && <img class="preview" src={demo.image} alt={demo.title} />}
+									<h4 class="title">{demo.title}</h4>
+									{demo.description && <p class="description">{demo.description}</p>}
 								</a>
 							</li>
 						))

@@ -324,12 +324,34 @@ After Phase 1, you can start writing content by dropping `.md`/`.mdx` files into
 - [ ] Lighthouse audit (aim for 95+ across the board)
 - [ ] README for the repo itself
 
-### Future: Embedding Pipeline
-- [ ] Add embedding vectors to tag dictionary
-- [ ] Add centroid embeddings to category config
-- [ ] Build auto-tagging script (runs embedding model, outputs `auto-tags.json`)
-- [ ] Merge manual + auto tags in Astro build
-- [ ] Switch category assignment to semantic similarity
+### Future: Staged Categorization Roadmap
+
+Embedding-based categorization is deferred. The original tag-centroid approach is also retired in favour of a stronger long-term target. Stages are gated by post count, not by date.
+
+#### Stage 1 — Now (≤25 posts): Manual + hygiene
+- [ ] Periodic tag-dictionary hygiene pass (singular/plural drift, orphan tags, re-run category build script when `categories.yml` changes)
+
+No embeddings, no automation. Manual tagging is faster than any alternative at this scale.
+
+#### Stage 2 — 10–25 posts: Write-time tag suggestions
+- [ ] Helper script: given a draft post, suggest tags from the existing dictionary (LLM or local embedding lookup), human accepts/rejects
+- [ ] Runs at write time, not build time — no runtime/build dependency
+
+Helps maintain vocabulary consistency as the tag set grows.
+
+#### Stage 3 — 25–50 posts: Hybrid categorization
+- [ ] Each category gains a rich `description` field; embed each description once
+- [ ] Pre-build script embeds each post body, assigns category by cosine similarity to category descriptions
+- [ ] Drop the manual tag→category mapping in `categories.yml`
+- [ ] Manual tags **remain** as the source of truth for `/blog/tags/[tag]/` browse pages
+
+Categories become a semantic layer that re-flows when you re-phrase a description; tags stay precise, curated, and explainable. This is where content-direct embedding pays off — without sacrificing the tag browse surface.
+
+#### Stage 4 — 50+ posts: Discovery features
+- [ ] "Related posts" via post-embedding cosine similarity
+- [ ] Semantic search over post bodies
+
+Discovery is where embeddings genuinely shine. Categorization is a relatively weak use case for them.
 
 ---
 

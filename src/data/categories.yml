@@ -18,3 +18,4 @@ tagLabels:
   ml: "Machine Learning"
   wasm: "WebAssembly"
   ai: "AI"
+  llm: "LLM"

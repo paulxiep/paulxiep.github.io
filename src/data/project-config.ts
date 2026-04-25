@@ -17,6 +17,8 @@ export interface ProjectConfig {
 	demoSlug?: string;
 	/** Override the demo iframe URL (defaults to repo homepage) */
 	demoUrl?: string;
+	/** Override the release URL (defaults to GitHub's latest release, if any) */
+	releaseUrl?: string;
 }
 
 /**

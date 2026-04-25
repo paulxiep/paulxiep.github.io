@@ -9,7 +9,13 @@ export interface GitHubRepo {
 	pushed_at: string;
 }
 
+export interface GitHubRelease {
+	html_url: string;
+	tag_name: string;
+}
+
 const repoCache = new Map<string, GitHubRepo>();
+const releaseCache = new Map<string, GitHubRelease | null>();
 
 function headers(token?: string): HeadersInit {
 	const h: HeadersInit = { Accept: 'application/vnd.github+json' };
@@ -46,6 +52,33 @@ export async function fetchRepos(
 	token?: string,
 ): Promise<GitHubRepo[]> {
 	return Promise.all(repoNames.map((name) => fetchRepo(owner, name, token)));
+}
+
+export async function fetchLatestRelease(
+	owner: string,
+	repo: string,
+	token?: string,
+): Promise<GitHubRelease | null> {
+	const key = `${owner}/${repo}`;
+	if (releaseCache.has(key)) return releaseCache.get(key)!;
+
+	const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`, {
+		headers: headers(token),
+	});
+	if (res.status === 404) {
+		releaseCache.set(key, null);
+		return null;
+	}
+	if (!res.ok) {
+		console.warn(`GitHub API error fetching latest release for ${key}: ${res.status}, skipping`);
+		releaseCache.set(key, null);
+		return null;
+	}
+
+	const data = (await res.json()) as GitHubRelease;
+	const release: GitHubRelease = { html_url: data.html_url, tag_name: data.tag_name };
+	releaseCache.set(key, release);
+	return release;
 }
 
 export async function fetchReadme(

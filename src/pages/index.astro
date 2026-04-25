@@ -10,12 +10,19 @@ const posts = (await getCollection('blog'))
 	.filter((p) => !p.data.draft && p.data.featured)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const projects = (await getCollection('projects'))
+const externalProjectsAll = await getCollection('externalProjects');
+const projects = [
+	...(await getCollection('projects')),
+	...externalProjectsAll,
+]
 	.filter((p) => p.data.featured)
 	.sort((a, b) => a.data.sortOrder - b.data.sortOrder)
 	.slice(0, 3);
 
-const demos = new Set((await getCollection('demos')).map((d) => d.id));
+const iframeDemos = new Set((await getCollection('demos')).map((d) => d.id));
+const externalDemoUrl = new Map(
+	externalProjectsAll.map((p) => [p.id, p.data.demoUrl]),
+);
 ---
 
 <!doctype html>
@@ -116,10 +123,22 @@ const demos = new Set((await getCollection('demos')).map((d) => d.id));
 									<a href={`/projects/${project.id}/`}>
 										<h4 class="project-title">{project.data.title}</h4>
 									</a>
-									{demos.has(project.id) && (
+									{iframeDemos.has(project.id) && (
 										<>
 											<span class="dot-sep">·</span>
 											<a href={`/demos/${project.id}/`} class="demo-link">Demo</a>
+										</>
+									)}
+									{externalDemoUrl.has(project.id) && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={externalDemoUrl.get(project.id)} class="demo-link" target="_blank" rel="noopener noreferrer">Demo</a>
+										</>
+									)}
+									{'release' in project.data && project.data.release && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={project.data.release} class="demo-link" target="_blank" rel="noopener">Release</a>
 										</>
 									)}
 								</div>

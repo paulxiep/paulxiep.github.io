@@ -1,6 +1,6 @@
 import type { Loader } from 'astro/loaders';
 import { projectRepos, GITHUB_OWNER, type ProjectConfig } from '../data/project-config';
-import { fetchRepo, fetchReadme } from './github';
+import { fetchRepo, fetchReadme, fetchLatestRelease } from './github';
 
 function formatRepoName(name: string): string {
 	return name
@@ -32,6 +32,7 @@ export function githubProjectsLoader(): Loader {
 			for (const config of publicRepos) {
 				const repo = await fetchRepo(GITHUB_OWNER, config.repo, token);
 				const readme = await fetchReadme(GITHUB_OWNER, config.repo, token);
+				const latestRelease = await fetchLatestRelease(GITHUB_OWNER, config.repo, token);
 
 				const data = await parseData({
 					id: repo.name,
@@ -40,6 +41,7 @@ export function githubProjectsLoader(): Loader {
 						description: config.description ?? repo.description ?? '',
 						repo: repo.html_url,
 						demo: config.demoUrl ?? (repo.homepage || undefined),
+						release: config.releaseUrl ?? latestRelease?.html_url,
 						tags: config.tags ?? repo.topics,
 						featured: config.featured ?? false,
 						sortOrder: config.sortOrder ?? 999,
@@ -66,6 +68,7 @@ export function githubProjectsLoader(): Loader {
 						description: config.description ?? '',
 						// No repo link for private repos
 						demo: config.demoUrl || undefined,
+						release: config.releaseUrl || undefined,
 						tags: config.tags ?? [],
 						featured: config.featured ?? false,
 						sortOrder: config.sortOrder ?? 999,

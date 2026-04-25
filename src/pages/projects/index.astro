@@ -5,8 +5,16 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-const projects = (await getCollection('projects')).sort(
+const githubProjects = await getCollection('projects');
+const externalProjects = await getCollection('externalProjects');
+
+const projects = [...githubProjects, ...externalProjects].sort(
 	(a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+
+const iframeDemos = new Set((await getCollection('demos')).map((d) => d.id));
+const externalDemoUrl = new Map(
+	externalProjects.map((p) => [p.id, p.data.demoUrl]),
 );
 ---
 
@@ -28,17 +36,35 @@ const projects = (await getCollection('projects')).sort(
 			}
 			ul li {
 				width: calc(50% - 1rem);
-			}
-			ul li a {
-				display: block;
-				text-decoration: none;
+				box-sizing: border-box;
 				padding: 1em;
 				border: 1px solid rgb(var(--gray-light));
 				border-radius: 8px;
 				transition: 0.2s ease;
 			}
-			ul li a:hover {
+			ul li:hover {
 				box-shadow: var(--box-shadow);
+			}
+			ul li a {
+				display: block;
+				text-decoration: none;
+			}
+			.project-header {
+				display: flex;
+				align-items: baseline;
+				gap: 0.5em;
+				flex-wrap: wrap;
+			}
+			.dot-sep {
+				color: rgb(var(--gray));
+			}
+			.demo-link {
+				color: var(--accent);
+				text-decoration: underline;
+				font-size: 1.1em;
+			}
+			.demo-link:hover {
+				opacity: 0.8;
 			}
 			.title {
 				margin: 0;
@@ -79,8 +105,30 @@ const projects = (await getCollection('projects')).sort(
 					{
 						projects.map((project) => (
 							<li>
+								<div class="project-header">
+									<a href={`/projects/${project.id}/`}>
+										<h4 class="title">{project.data.title}</h4>
+									</a>
+									{iframeDemos.has(project.id) && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={`/demos/${project.id}/`} class="demo-link">Demo</a>
+										</>
+									)}
+									{externalDemoUrl.has(project.id) && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={externalDemoUrl.get(project.id)} class="demo-link" target="_blank" rel="noopener noreferrer">Demo</a>
+										</>
+									)}
+									{'release' in project.data && project.data.release && (
+										<>
+											<span class="dot-sep">·</span>
+											<a href={project.data.release} class="demo-link" target="_blank" rel="noopener">Release</a>
+										</>
+									)}
+								</div>
 								<a href={`/projects/${project.id}/`}>
-									<h4 class="title">{project.data.title}</h4>
 									<p class="description">{project.data.description}</p>
 									{project.data.tags.length > 0 && (
 										<div class="tags">
