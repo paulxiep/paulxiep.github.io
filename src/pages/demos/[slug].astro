@@ -48,8 +48,17 @@ const iframeUrl = demo.data.url;
 	<body>
 		<Header />
 		<main>
-			<iframe src={iframeUrl} title={title}></iframe>
+			<iframe data-base-url={iframeUrl} title={title}></iframe>
 		</main>
 		<Footer />
+		<script is:inline>
+			(function () {
+				var iframe = document.querySelector('iframe[data-base-url]');
+				if (!iframe) return;
+				var base = iframe.getAttribute('data-base-url');
+				var sep = base.indexOf('?') === -1 ? '?' : '&';
+				iframe.src = base + sep + 'theme=' + (document.documentElement.dataset.theme || 'light');
+			})();
+		</script>
 	</body>
 </html>

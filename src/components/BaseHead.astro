@@ -32,6 +32,14 @@ const imageURL = new URL(image.src, Astro.site ?? Astro.url);
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
+<script is:inline>
+	(function () {
+		var s = localStorage.getItem('theme');
+		var t = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = t;
+	})();
+</script>
+
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />

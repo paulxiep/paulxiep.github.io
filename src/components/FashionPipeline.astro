@@ -101,29 +101,27 @@ const { class: className } = Astro.props;
     --po-arr: #8892A8;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .po-root {
-      --po-gray-fill: #1E2230;
-      --po-gray-stroke: #3D4455;
-      --po-gray-text: #C8CDD8;
-      --po-teal-fill: #0D1545;
-      --po-teal-stroke: #3D50E0;
-      --po-teal-text: #A8B4FF;
-      --po-teal-sub: #7B8EFF;
-      --po-coral-fill: #3A2A08;
-      --po-coral-stroke: #C89020;
-      --po-coral-text: #F0D080;
-      --po-coral-sub: #E0B850;
-      --po-purple-fill: #1E1850;
-      --po-purple-stroke: #6B60D0;
-      --po-purple-text: #C0BAFF;
-      --po-purple-sub: #9A92E8;
-      --po-purple-border: #8B7FE0;
-      --po-purple-title: #C0BAFF;
-      --po-feedback: #E0A030;
-      --po-feedback-label: #F0D080;
-      --po-arr: #8892A8;
-    }
+  :root[data-theme="dark"] .po-root {
+    --po-gray-fill: #1E2230;
+    --po-gray-stroke: #3D4455;
+    --po-gray-text: #C8CDD8;
+    --po-teal-fill: #0D1545;
+    --po-teal-stroke: #3D50E0;
+    --po-teal-text: #A8B4FF;
+    --po-teal-sub: #7B8EFF;
+    --po-coral-fill: #3A2A08;
+    --po-coral-stroke: #C89020;
+    --po-coral-text: #F0D080;
+    --po-coral-sub: #E0B850;
+    --po-purple-fill: #1E1850;
+    --po-purple-stroke: #6B60D0;
+    --po-purple-text: #C0BAFF;
+    --po-purple-sub: #9A92E8;
+    --po-purple-border: #8B7FE0;
+    --po-purple-title: #C0BAFF;
+    --po-feedback: #E0A030;
+    --po-feedback-label: #F0D080;
+    --po-arr: #8892A8;
   }
 
   .po-stage rect {
