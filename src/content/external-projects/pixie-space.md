@@ -1,7 +1,7 @@
 ---
 # Required
 title: "Pixie Space"
-description: "CAD made easy. On the web, no installation. A project where I design and implement a product end-to-end."
+description: "Browser-native 2D drafting. A project where I design and implement a product end-to-end."
 demoUrl: "https://space.pixiepavel.com"
 
 # Optional
@@ -13,9 +13,9 @@ sortOrder: 2            # lower = earlier in the projects list
 
 # Pixie Space
 
-**(Under Construction)**. Pixie Space is in preview release. It's not yet announced to the public and not yet QC'ed.
+**(Under Construction)**. Pixie Space is in preview release. It's not yet announced to the public.
 
-A project where I design and implement a product end-to-end to test out my business acumen. Can I make a product that people love and use? This Pixie Space is the first proof.
+A project where I design and implement a product end-to-end to test out my business acumen and provide proof for my Forward Deployed Engineer shape. Can I make a product that people love and use? This Pixie Space is the first proof. In so doing I'm doing everything from copywriting and SEO, things I wouldn't get to do otherwise.
 
 ## Pixie
 

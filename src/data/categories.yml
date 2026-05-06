@@ -1,7 +1,7 @@
 categories:
   - slug: industries
     label: "Industries"
-    tags: [fashion, fashion-tech]
+    tags: [fashion, fashion-tech, ai]
   - slug: thinking
     label: "Thinking"
     tags: [intentionality, first-principles]
@@ -19,3 +19,4 @@ tagLabels:
   wasm: "WebAssembly"
   ai: "AI"
   llm: "LLM"
+  seo: "SEO"

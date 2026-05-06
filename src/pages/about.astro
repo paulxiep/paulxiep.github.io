@@ -2,11 +2,23 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { personSchema } from '../lib/schema';
+
+const aboutPageSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'AboutPage',
+	url: new URL(Astro.url.pathname, Astro.site).toString(),
+	mainEntity: personSchema,
+};
 ---
 
 <html lang="en">
 	<head>
-		<BaseHead title="About Me" description="About Paul Rachapong Chirarattananon." />
+		<BaseHead
+			title="About Me"
+			description="About Paul Rachapong Chirarattananon."
+			jsonLd={aboutPageSchema}
+		/>
 		<style>
 			.prose {
 				max-width: min(1080px, calc(100% - 2em));

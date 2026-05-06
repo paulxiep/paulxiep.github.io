@@ -2,7 +2,7 @@
 title: 'Intentionality in AI-era Obsolescence'
 description: 'On navigating the uncertainty of AI-era with intentionality.'
 pubDate: '2026-04-21'
-tags: ['intentionality', 'trend', 'ai', 'llm']
+tags: ['intentionality', 'trend', 'ai', 'llm', 'engineer']
 featured: true
 ---
 

@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { personSchema, websiteSchema } from '../lib/schema';
 
 const posts = (await getCollection('blog'))
 	.filter((p) => !p.data.draft && p.data.featured)
@@ -28,7 +29,11 @@ const externalDemoUrl = new Map(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+			jsonLd={[websiteSchema, personSchema]}
+		/>
 		<style>
 			.hero {
 				text-align: center;
