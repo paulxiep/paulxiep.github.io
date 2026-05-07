@@ -22,6 +22,19 @@ import Header from '../components/Header.astro';
 				border-bottom: 1px solid rgb(var(--gray-light));
 				padding-bottom: 0.3em;
 			}
+			.summary {
+				background: rgba(var(--gray-light), 0.3);
+				border-left: 3px solid rgb(var(--accent, var(--gray)));
+				padding: 1em 1.2em;
+				border-radius: 4px;
+				margin: 1.5em 0;
+			}
+			.summary p:first-child {
+				margin-top: 0;
+			}
+			.summary p:last-child {
+				margin-bottom: 0;
+			}
 		</style>
 	</head>
 
@@ -30,57 +43,38 @@ import Header from '../components/Header.astro';
 		<main>
 			<div class="prose">
 				<h1>Terms of Service</h1>
-				<p><em>Last updated: March 25, 2026</em></p>
+				<p><em>Last updated: May 7, 2026</em></p>
 
-				<h2>Acceptance of Terms</h2>
-				<p>
-					By accessing or using paulxie.com ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the Service.
-				</p>
+				<div class="summary">
+					<p><strong>Short version:</strong> paulxie.com is a personal portfolio. The demos are illustrative — use them for fun and exploration, not production work. If you sign in with Google, you're using your own Gemini API quota on your own account, so play nicely with Google's rules. Don't break things, don't try to abuse the site, and treat the demos as "as-is."</p>
+				</div>
 
-				<h2>Description of Service</h2>
-				<p>
-					paulxie.com is a personal portfolio and project showcase website. The Service may include interactive demos, blog content, and features that require authentication via Google OAuth.
-				</p>
+				<h2>The service</h2>
+				<p>paulxie.com is a personal portfolio and project showcase. It hosts blog posts, project descriptions, and a few interactive client-side demos. There are no user accounts on the site itself.</p>
 
-				<h2>User Accounts</h2>
-				<p>
-					When you sign in using Google OAuth, you agree to provide accurate information. You are responsible for maintaining the security of your account and for all activities that occur under your account.
-				</p>
-
-				<h2>Acceptable Use</h2>
-				<p>You agree not to:</p>
+				<h2>Using the demos</h2>
+				<p>Some demos let you sign in with Google so they can call the Gemini API on your behalf, using your own quota. By signing in you agree that:</p>
 				<ul>
-					<li>Use the Service for any unlawful purpose</li>
-					<li>Attempt to gain unauthorized access to any part of the Service</li>
-					<li>Interfere with or disrupt the Service or its infrastructure</li>
-					<li>Reproduce, duplicate, or exploit any part of the Service without permission</li>
+					<li>You're responsible for the prompts and files you submit, and for any quota or charges on your Google account.</li>
+					<li>You'll follow Google's <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API Terms</a> and <a href="https://policies.google.com/terms/generative-ai/use-policy" target="_blank" rel="noopener">Generative AI Prohibited Use Policy</a>.</li>
+					<li>The demos call Google directly from your browser — we don't proxy, log, or store your prompts or results.</li>
 				</ul>
 
-				<h2>Intellectual Property</h2>
-				<p>
-					All content on this website, including text, code, graphics, and logos, is the property of Paul Rachapong Chirarattananon unless otherwise stated. Open-source projects are governed by their respective licenses.
-				</p>
+				<h2>Don'ts</h2>
+				<ul>
+					<li>No unlawful use, and no using the demos in ways Google's Gemini terms forbid.</li>
+					<li>No trying to break, abuse, or gain unauthorized access to the site or anyone else's account.</li>
+					<li>No reusing site content beyond what the relevant open-source licenses permit.</li>
+				</ul>
 
-				<h2>Disclaimer of Warranties</h2>
-				<p>
-					The Service is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that the Service will be uninterrupted, secure, or error-free.
-				</p>
+				<h2>Intellectual property</h2>
+				<p>Site content (text, code, graphics, logos) belongs to Paul Rachapong Chirarattananon unless stated otherwise. Open-source projects are covered by their own licenses.</p>
 
-				<h2>Limitation of Liability</h2>
-				<p>
-					To the fullest extent permitted by law, paulxie.com and its owner shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service.
-				</p>
+				<h2>As-is, no warranty</h2>
+				<p>The site and demos are provided "as is" — they're illustrative projects, not production software. We don't guarantee they'll be uninterrupted, accurate, or error-free, and we make no warranty about outputs from the Gemini API. To the fullest extent permitted by law, we're not liable for indirect or consequential damages arising from your use of the site, including any quota or charges incurred against your Google account.</p>
 
-				<h2>Changes to These Terms</h2>
-				<p>
-					We reserve the right to modify these Terms of Service at any time. Changes will be posted on this page with an updated revision date. Continued use of the Service after changes constitutes acceptance of the new terms.
-				</p>
-
-				<h2>Contact</h2>
-				<p>
-					If you have questions about these Terms of Service, please contact us at
-					<a href="mailto:paulxiep@outlook.com">paulxiep@outlook.com</a>.
-				</p>
+				<h2>Changes &amp; contact</h2>
+				<p>We may update these terms; changes will be posted here with a new revision date. Continued use means you accept them. Questions: <a href="mailto:paulxiep@outlook.com">paulxiep@outlook.com</a>.</p>
 			</div>
 		</main>
 		<Footer />
