@@ -28,9 +28,10 @@ export interface ProjectConfig {
  */
 export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
-	{ repo: 'quant-trading-gym', sortOrder: 3, featured: false },
-	{ repo: 'invoice-parse', sortOrder: 4, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
-	{ repo: 'portfolio', sortOrder: 5, featured: false, title: 'Old Portfolio (2023)' },
+	{ repo: 'caravan', sortOrder: 3, featured: false },
+	{ repo: 'quant-trading-gym', sortOrder: 4, featured: false },
+	{ repo: 'invoice-parse', sortOrder: 5, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
+	{ repo: 'portfolio', sortOrder: 6, featured: false, title: 'Old Portfolio (2023)' },
 	// Add more repos here:
 	// { repo: 'another-repo', sortOrder: 2 },
 ];
