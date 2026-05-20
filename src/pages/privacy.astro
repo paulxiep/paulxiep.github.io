@@ -43,40 +43,68 @@ import Header from '../components/Header.astro';
 		<main>
 			<div class="prose">
 				<h1>Privacy Policy</h1>
-				<p><em>Last updated: May 7, 2026</em></p>
+				<p><em>Last updated: May 20, 2026</em></p>
+
+				<p>This Privacy Policy applies to the Google OAuth applications hosted at <strong>paulxie.com</strong>: <strong>Code RAG Chatbot</strong> and <strong>Invoice Parse</strong> (collectively, the "Applications"). It describes how the Applications access, use, store, and share information received from Google APIs and from end users.</p>
 
 				<div class="summary">
-					<p><strong>Short version:</strong> paulxie.com is a static site with no backend and no user accounts. The interactive demos run entirely in your browser. If you sign in with Google in a demo, we ask only for permission to call the Gemini API on your behalf — not your name, email, or profile. The token stays in your browser; we never see it, your prompts, or your results.</p>
+					<p><strong>Summary:</strong> The Applications are browser-based demos. When you sign in with Google, the Applications request only permission to call Google's Gemini API on your behalf — no name, email, profile, contacts, or files. Your access token stays in your browser, is sent directly from your browser to Google, and is never transmitted to or stored on any server operated by the developer.</p>
 				</div>
 
-				<h2>What we collect</h2>
-				<p>Nothing on the site itself. No accounts, no analytics, no tracking.</p>
-				<p>The demos (currently <em>Code RAG Chatbot</em> and <em>Invoice Parse</em>) optionally use Google Sign-In so they can call Google's Gemini API using your own quota. They request only these scopes:</p>
+				<h2>Information we collect</h2>
+				<p>The Applications collect the following Google user data, and only when you choose to sign in with Google:</p>
 				<ul>
-					<li><code>generative-language.peruserquota</code> — call the Gemini API on your behalf</li>
-					<li><code>generative-language.retriever</code> — use the Gemini API retriever feature</li>
+					<li>An OAuth 2.0 access token issued by Google to your browser, scoped to the Gemini API.</li>
 				</ul>
-				<p>No name, email, profile picture, contacts, or files.</p>
-
-				<h2>How the token is handled</h2>
+				<p>The Applications request only these OAuth scopes:</p>
 				<ul>
-					<li>Stored in your browser's <code>localStorage</code> for the session.</li>
-					<li>Sent directly from your browser to Google. Never sent to us.</li>
-					<li>Expires automatically (about an hour) and can be revoked at any time.</li>
+					<li><code>https://www.googleapis.com/auth/generative-language.peruserquota</code> — call the Gemini API on your behalf using your own quota.</li>
+					<li><code>https://www.googleapis.com/auth/generative-language.retriever</code> — use the Gemini API retriever feature on your behalf.</li>
 				</ul>
-				<p>If you paste a Gemini API key instead, the same applies — it stays in your browser.</p>
+				<p>The Applications do <strong>not</strong> request or receive your name, email address, profile picture, contacts, calendar, Drive files, or any other personal information from Google.</p>
+				<p>The paulxie.com portfolio site itself collects no personal data, uses no analytics, sets no tracking cookies, and has no user accounts.</p>
 
-				<h2>Third parties</h2>
-				<p>The demos talk directly to Google for sign-in and inference. That interaction is governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> and the <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API Additional Terms</a>. The site is served as static files by a hosting provider, which may process standard request metadata to deliver the site.</p>
+				<h2>Use of Google user data</h2>
+				<p>The access token described above is used solely to call Google's Gemini API endpoints from your browser, in response to actions you take in the Applications (for example, submitting a chat message in Code RAG Chatbot, or uploading an invoice image to Invoice Parse). The token is not used for any other purpose.</p>
+				<p>The Applications do not use Google user data to:</p>
+				<ul>
+					<li>Train, fine-tune, or evaluate any machine learning model.</li>
+					<li>Serve advertising of any kind.</li>
+					<li>Determine creditworthiness or for lending purposes.</li>
+					<li>Sell or transfer the data to data brokers, information resellers, or any third party for those purposes.</li>
+				</ul>
+
+				<h3>Limited Use disclosure</h3>
+				<p>The Applications' use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#limited-use" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+				<h2>How data is stored and retained</h2>
+				<ul>
+					<li>The OAuth access token is stored in your browser's <code>localStorage</code> for the duration of your session.</li>
+					<li>Tokens are sent directly from your browser to Google's API endpoints. They are never transmitted to, received by, or stored on any server operated by the developer.</li>
+					<li>Tokens expire automatically (typically within one hour) and can be revoked by you at any time (see "Your rights" below).</li>
+					<li>If you choose to provide a Gemini API key instead of signing in with Google, that key is also stored only in your browser's <code>localStorage</code> and is sent only to Google.</li>
+				</ul>
+
+				<h2>How data is shared</h2>
+				<p>The Applications share Google user data only with Google itself, by calling Google's Gemini API endpoints on your behalf. No Google user data is shared with the developer, with any analytics provider, with any advertising network, or with any other third party.</p>
+				<p>The static files for paulxie.com are served by a third-party hosting provider, which may process standard request metadata (such as IP address and user-agent) for the purpose of delivering the site. The hosting provider does not receive Google user data.</p>
+				<p>Your interaction with Google's APIs is additionally governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> and the <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API Additional Terms of Service</a>.</p>
+
+				<h2>How data is protected</h2>
+				<p>The Applications are served exclusively over HTTPS. Tokens never leave your browser except when sent directly to Google over HTTPS. Because no server operated by the developer ever receives Google user data, there is no developer-side data store that could be breached.</p>
 
 				<h2>Your rights</h2>
 				<ul>
-					<li>Revoke the demo's Google access anytime at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.</li>
-					<li>Clear browser storage for paulxie.com to remove any stored token or API key.</li>
+					<li>You may revoke the Applications' access to your Google account at any time at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.</li>
+					<li>You may clear your browser's storage for paulxie.com at any time to remove any stored token or API key.</li>
+					<li>Because the developer never receives or stores Google user data, there is no developer-held data for you to request access to, correct, or delete.</li>
 				</ul>
 
-				<h2>Changes &amp; contact</h2>
-				<p>Updates will be posted here with a new revision date. Questions: <a href="mailto:paulxiep@outlook.com">paulxiep@outlook.com</a>.</p>
+				<h2>Changes to this policy</h2>
+				<p>Material changes to this Privacy Policy, including any change to how the Applications use Google user data, will be posted on this page with an updated "Last updated" date. Continued use of the Applications after such changes constitutes acceptance of the revised policy.</p>
+
+				<h2>Contact</h2>
+				<p>Questions about this Privacy Policy or the Applications' handling of Google user data: <a href="mailto:paulxiep@outlook.com">paulxiep@outlook.com</a>.</p>
 			</div>
 		</main>
 		<Footer />
