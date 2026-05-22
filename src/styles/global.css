@@ -60,7 +60,7 @@
 body {
 	font-family: "Atkinson", sans-serif;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 3em 0;
 	text-align: left;
 	background: linear-gradient(var(--gray-gradient)) no-repeat;
 	background-size: 100% 600px;
@@ -223,6 +223,7 @@ hr {
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
+		padding-bottom: 4.5em;
 	}
 	main {
 		padding: 1em;

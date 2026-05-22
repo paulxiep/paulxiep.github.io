@@ -17,11 +17,17 @@ const today = new Date();
 		align-items: baseline;
 		gap: 0.4em 1.25em;
 		padding: 0.5em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
+		background: rgb(var(--surface));
 		color: rgb(var(--gray));
 		text-align: center;
 		font-size: 0.875em;
 		line-height: 1.4;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 10;
+		box-shadow: 0 -2px 8px rgba(var(--black), 5%);
 	}
 	.legal-links {
 		display: inline-flex;
