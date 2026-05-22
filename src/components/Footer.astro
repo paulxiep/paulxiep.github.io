@@ -3,25 +3,29 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Paul X. All rights reserved.
-	<div class="legal-links">
+	<span class="copy">&copy; {today.getFullYear()} Paul X. All rights reserved.</span>
+	<span class="legal-links">
 		<a href="/privacy/">Privacy Policy</a>
 		<a href="/terms/">Terms of Service</a>
-	</div>
+	</span>
 </footer>
 <style>
 	footer {
-		padding: 2em 1em;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: baseline;
+		gap: 0.4em 1.25em;
+		padding: 0.5em 1em;
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+		font-size: 0.875em;
+		line-height: 1.4;
 	}
 	.legal-links {
-		display: flex;
-		justify-content: center;
-		gap: 1.5em;
-		margin-top: 0.8em;
-		font-size: 0.875em;
+		display: inline-flex;
+		gap: 1.25em;
 	}
 	.legal-links a {
 		color: rgb(var(--gray));
@@ -29,5 +33,12 @@ const today = new Date();
 	}
 	.legal-links a:hover {
 		color: rgb(var(--gray-dark));
+	}
+	@media (max-width: 600px) {
+		footer {
+			flex-direction: column;
+			gap: 0.35em;
+			padding: 0.75em 1em;
+		}
 	}
 </style>
