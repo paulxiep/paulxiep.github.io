@@ -3,6 +3,7 @@ title: 'Pixie Space 1st Release'
 description: 'A product launch as part of my career strategy'
 pubDate: '2026-05-06'
 tags: ['fashion', 'fashiontech', 'portfolio', 'branding']
+featured: true
 ---
 
 [I released Pixie Space](https://paulxie.com/projects/pixie-space/), and it's a strategic career move.

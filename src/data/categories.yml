@@ -5,9 +5,9 @@ categories:
   - slug: thinking
     label: "Thinking"
     tags: [intentionality, first-principles]
-  - slug: system-design
-    label: "System Design"
-    tags: [system-architecture, software-architecture, design-patterns]
+  - slug: system
+    label: "System"
+    tags: [system-architecture, software-architecture, economy]
   - slug: languages
     label: "Languages"
     tags: [poetry, translation, language]

@@ -2,8 +2,7 @@
 title: 'Intentionality in AI-era Obsolescence'
 description: 'On navigating the uncertainty of AI-era with intentionality.'
 pubDate: '2026-04-21'
-tags: ['intentionality', 'trend', 'ai', 'llm', 'engineer']
-featured: true
+tags: ['intentionality', 'trend', 'ai', 'engineer']
 ---
 
 My past mentee (2 YoE Engineer) is worried.
