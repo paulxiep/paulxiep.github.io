@@ -3,7 +3,6 @@ title: 'The turbulence of AI disruption.'
 description: '4 observations on how AI is changing the economy and businesses'
 pubDate: '2026-05-22'
 tags: ['intentionality', 'economy', 'ai']
-featured: true
 ---
 
 Across the projects I've built in these past couple of months, productivity gains from AI are wildly uneven. Some work sees orders of magnitude. Some sees nothing. That gap is creating four problems

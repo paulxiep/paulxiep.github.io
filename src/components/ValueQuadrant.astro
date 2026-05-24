@@ -1,0 +1,153 @@
+---
+// ValueQuadrant.astro
+// Usage: <ValueQuadrant />
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["vq-root", className]}>
+  <svg width="100%" viewBox="0 0 680 580" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="vq-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <text x="340" y="28" text-anchor="middle" dominant-baseline="central" class="vq-axis-title">HIGH VALUE</text>
+    <text x="340" y="552" text-anchor="middle" dominant-baseline="central" class="vq-axis-title">LOW VALUE</text>
+    <text x="22" y="280" text-anchor="middle" dominant-baseline="central" class="vq-axis-title" transform="rotate(-90 22 280)">OPEN RESEARCH</text>
+    <text x="658" y="280" text-anchor="middle" dominant-baseline="central" class="vq-axis-title" transform="rotate(-90 658 280)">COMMODITY COMPONENTS</text>
+
+    <g class="vq-quad vq-quad--purple">
+      <rect x="88" y="68" width="254" height="204" rx="12"/>
+      <text x="215" y="120" text-anchor="middle" dominant-baseline="central" class="vq-label">Frontier research</text>
+      <text x="215" y="150" text-anchor="middle" dominant-baseline="central" class="vq-sub">Researcher territory.</text>
+      <text x="215" y="170" text-anchor="middle" dominant-baseline="central" class="vq-sub">Fund them properly.</text>
+    </g>
+
+    <g class="vq-quad vq-quad--teal vq-quad--star">
+      <rect x="358" y="68" width="254" height="204" rx="12"/>
+      <text x="485" y="120" text-anchor="middle" dominant-baseline="central" class="vq-label vq-label--star">★ Composition opportunity</text>
+      <text x="485" y="150" text-anchor="middle" dominant-baseline="central" class="vq-sub">Where AI leverages most.</text>
+      <text x="485" y="170" text-anchor="middle" dominant-baseline="central" class="vq-sub">Compose. KISS.</text>
+    </g>
+
+    <g class="vq-quad vq-quad--coral">
+      <rect x="88" y="288" width="254" height="204" rx="12"/>
+      <text x="215" y="370" text-anchor="middle" dominant-baseline="central" class="vq-label">Avoid</text>
+      <text x="215" y="400" text-anchor="middle" dominant-baseline="central" class="vq-sub">Open problems</text>
+      <text x="215" y="420" text-anchor="middle" dominant-baseline="central" class="vq-sub">with no payoff.</text>
+    </g>
+
+    <g class="vq-quad vq-quad--gray">
+      <rect x="358" y="288" width="254" height="204" rx="12"/>
+      <text x="485" y="370" text-anchor="middle" dominant-baseline="central" class="vq-label">Table stakes</text>
+      <text x="485" y="400" text-anchor="middle" dominant-baseline="central" class="vq-sub">Everyone can vibe</text>
+      <text x="485" y="420" text-anchor="middle" dominant-baseline="central" class="vq-sub">these now.</text>
+    </g>
+
+    <line x1="350" y1="56" x2="350" y2="504" class="vq-axis" marker-start="url(#vq-arrow)" marker-end="url(#vq-arrow)"/>
+    <line x1="70" y1="280" x2="630" y2="280" class="vq-axis" marker-start="url(#vq-arrow)" marker-end="url(#vq-arrow)"/>
+  </svg>
+</div>
+
+<style>
+  .vq-root {
+    max-width: 780px;
+    margin: 0 auto;
+
+    --vq-axis: #6E7587;
+    --vq-axis-title: #4A5063;
+
+    --vq-purple-fill: #EDEAFF;
+    --vq-purple-stroke: #8B7FE0;
+    --vq-purple-text: #2D2480;
+    --vq-purple-sub: #4840A8;
+
+    --vq-teal-fill: #DCE2FF;
+    --vq-teal-stroke: #3A4DE8;
+    --vq-teal-text: #000866;
+    --vq-teal-sub: #1A2BCC;
+
+    --vq-coral-fill: #FFF0E0;
+    --vq-coral-stroke: #D89030;
+    --vq-coral-text: #6B4A00;
+    --vq-coral-sub: #8A6200;
+
+    --vq-gray-fill: #E8EBF0;
+    --vq-gray-stroke: #9BA3B5;
+    --vq-gray-text: #222939;
+    --vq-gray-sub: #4A5063;
+  }
+
+  :root[data-theme="dark"] .vq-root {
+    --vq-axis: #8892A8;
+    --vq-axis-title: #B0B7C8;
+
+    --vq-purple-fill: #1E1850;
+    --vq-purple-stroke: #6B60D0;
+    --vq-purple-text: #C0BAFF;
+    --vq-purple-sub: #9A92E8;
+
+    --vq-teal-fill: #0D1545;
+    --vq-teal-stroke: #5A6BFF;
+    --vq-teal-text: #C8D0FF;
+    --vq-teal-sub: #9AA8FF;
+
+    --vq-coral-fill: #3A2A08;
+    --vq-coral-stroke: #C89020;
+    --vq-coral-text: #F0D080;
+    --vq-coral-sub: #E0B850;
+
+    --vq-gray-fill: #1E2230;
+    --vq-gray-stroke: #3D4455;
+    --vq-gray-text: #C8CDD8;
+    --vq-gray-sub: #9BA3B5;
+  }
+
+  .vq-quad rect { stroke-width: 1px; }
+  .vq-quad--purple rect { fill: var(--vq-purple-fill); stroke: var(--vq-purple-stroke); }
+  .vq-quad--teal   rect { fill: var(--vq-teal-fill);   stroke: var(--vq-teal-stroke); }
+  .vq-quad--coral  rect { fill: var(--vq-coral-fill);  stroke: var(--vq-coral-stroke); }
+  .vq-quad--gray   rect { fill: var(--vq-gray-fill);   stroke: var(--vq-gray-stroke); }
+  .vq-quad--star   rect { stroke-width: 2.5px; }
+
+  .vq-label {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .vq-label--star { font-size: 19px; }
+
+  .vq-sub {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .vq-quad--purple .vq-label { fill: var(--vq-purple-text); }
+  .vq-quad--purple .vq-sub   { fill: var(--vq-purple-sub); }
+  .vq-quad--teal   .vq-label { fill: var(--vq-teal-text); }
+  .vq-quad--teal   .vq-sub   { fill: var(--vq-teal-sub); }
+  .vq-quad--coral  .vq-label { fill: var(--vq-coral-text); }
+  .vq-quad--coral  .vq-sub   { fill: var(--vq-coral-sub); }
+  .vq-quad--gray   .vq-label { fill: var(--vq-gray-text); }
+  .vq-quad--gray   .vq-sub   { fill: var(--vq-gray-sub); }
+
+  .vq-axis {
+    stroke: var(--vq-axis);
+    stroke-width: 1.5px;
+  }
+
+  .vq-axis-title {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    fill: var(--vq-axis-title);
+  }
+</style>
