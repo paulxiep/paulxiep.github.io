@@ -12,6 +12,7 @@ const iframeDemos = (await getCollection('demos')).map((d) => ({
 	image: d.data.image as string | undefined,
 	href: `/demos/${d.id}/`,
 	external: false,
+	sortOrder: d.data.sortOrder,
 }));
 const externalDemos = (await getCollection('externalProjects')).map((p) => ({
 	id: p.id,
@@ -20,8 +21,11 @@ const externalDemos = (await getCollection('externalProjects')).map((p) => ({
 	image: undefined as string | undefined,
 	href: p.data.demoUrl,
 	external: true,
+	sortOrder: p.data.sortOrder,
 }));
-const demos = [...iframeDemos, ...externalDemos];
+const demos = [...iframeDemos, ...externalDemos].sort(
+	(a, b) => a.sortOrder - b.sortOrder,
+);
 ---
 
 <!doctype html>

@@ -42,6 +42,7 @@ export function githubDemosLoader(): Loader {
 						title: config.title ?? formatRepoName(config.repo),
 						description,
 						url: demoUrl,
+						sortOrder: config.sortOrder ?? 999,
 					},
 				});
 

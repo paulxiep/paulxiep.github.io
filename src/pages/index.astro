@@ -17,8 +17,7 @@ const projects = [
 	...externalProjectsAll,
 ]
 	.filter((p) => p.data.featured)
-	.sort((a, b) => a.data.sortOrder - b.data.sortOrder)
-	.slice(0, 3);
+	.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const iframeDemos = new Set((await getCollection('demos')).map((d) => d.id));
 const externalDemoUrl = new Map(
