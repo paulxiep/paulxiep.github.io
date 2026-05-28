@@ -19,6 +19,8 @@ export interface ProjectConfig {
 	demoUrl?: string;
 	/** Override the release URL (defaults to GitHub's latest release, if any) */
 	releaseUrl?: string;
+	/** Cross-domain canonical URL (when the project's canonical home lives elsewhere) */
+	canonical?: string;
 }
 
 /**
@@ -28,7 +30,7 @@ export interface ProjectConfig {
  */
 export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
-	{ repo: 'caravan', sortOrder: 3, featured: true },
+	{ repo: 'caravan', sortOrder: 3, featured: true, canonical: 'https://paulxlab.com/caravan' },
 	{ repo: 'daccord', sortOrder: 4, featured: true, title: "D'accord" },
 	{ repo: 'quant-trading-gym', sortOrder: 5, featured: false },
 	{ repo: 'invoice-parse', sortOrder: 6, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },

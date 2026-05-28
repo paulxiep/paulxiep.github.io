@@ -45,6 +45,7 @@ export function githubProjectsLoader(): Loader {
 						tags: config.tags ?? repo.topics,
 						featured: config.featured ?? false,
 						sortOrder: config.sortOrder ?? 999,
+						canonical: config.canonical,
 					},
 				});
 
@@ -72,6 +73,7 @@ export function githubProjectsLoader(): Loader {
 						tags: config.tags ?? [],
 						featured: config.featured ?? false,
 						sortOrder: config.sortOrder ?? 999,
+						canonical: config.canonical,
 					},
 				});
 

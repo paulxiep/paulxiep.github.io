@@ -30,6 +30,7 @@ const projects = defineCollection({
 		tags: z.array(z.string()).default([]),
 		featured: z.boolean().default(false),
 		sortOrder: z.number().default(0),
+		canonical: z.string().url().optional(),
 	}),
 });
 
@@ -55,6 +56,7 @@ const externalProjects = defineCollection({
 			featured: z.boolean().default(false),
 			sortOrder: z.number().default(0),
 			heroImage: z.optional(image()),
+			canonical: z.string().url().optional(),
 		}),
 });
 
