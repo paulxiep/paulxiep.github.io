@@ -7,7 +7,7 @@ demoUrl: "https://space.pixiepavel.com"
 # Optional
 tags: []                  # e.g. ["ml", "demo"]
 featured: true          # set true to surface in homepage Featured Projects
-sortOrder: 2            # lower = earlier in the projects list
+sortOrder: 3            # lower = earlier in the projects list
 canonical: "https://pixiepavel.com/"
 # heroImage: "./hero.png" # optional, relative to this file
 ---

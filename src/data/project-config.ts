@@ -7,11 +7,15 @@ export interface ProjectConfig {
 	featured?: boolean;
 	/** Override the display title (defaults to formatted repo name) */
 	title?: string;
-	/** Override the description (required for private repos) */
+	/** Override the description (defaults to GitHub description) */
 	description?: string;
-	/** Tags (required for private repos, otherwise pulled from GitHub topics) */
+	/** Tags (defaults to GitHub topics) */
 	tags?: string[];
-	/** Private repo — skips GitHub API, hides repo link, uses local metadata only */
+	/**
+	 * Private/closed-source repo — README & metadata are still fetched via the
+	 * authenticated GITHUB_TOKEN, but the "View on GitHub" link is hidden and
+	 * replaced with a closed-source notice on the project page.
+	 */
 	private?: boolean;
 	/** Override the demo slug used in /demos/ URL */
 	demoSlug?: string;
@@ -30,11 +34,13 @@ export interface ProjectConfig {
  */
 export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
-	{ repo: 'caravan', sortOrder: 3, featured: true, canonical: 'https://paulxlab.com/caravan' },
-	{ repo: 'daccord', sortOrder: 4, featured: true, title: "D'accord" },
-	{ repo: 'quant-trading-gym', sortOrder: 5, featured: false },
-	{ repo: 'invoice-parse', sortOrder: 6, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
-	{ repo: 'portfolio', sortOrder: 7, featured: false, title: 'Old Portfolio (2023)' },
+	{ repo: 'caravan', sortOrder: 2, featured: true, canonical: 'https://paulxlab.com/caravan' },
+	{ repo: 'cioport', sortOrder: 4, featured: false, title: "CIOport", private: true },
+	{ repo: 'daccord', sortOrder: 5, featured: true, title: "D'accord" },
+	{ repo: 'concurrens', sortOrder: 6, featured: false, private: true },
+	{ repo: 'invoice-parse', sortOrder: 7, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
+	{ repo: 'quant-trading-gym', sortOrder: 8, featured: false },
+	{ repo: 'portfolio', sortOrder: 9, featured: false, title: 'Old Portfolio (2023)' },
 	// Add more repos here:
 	// { repo: 'another-repo', sortOrder: 2 },
 ];

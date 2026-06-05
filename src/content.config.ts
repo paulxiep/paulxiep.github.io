@@ -31,6 +31,7 @@ const projects = defineCollection({
 		featured: z.boolean().default(false),
 		sortOrder: z.number().default(0),
 		canonical: z.string().url().optional(),
+		closedSource: z.boolean().default(false),
 	}),
 });
 

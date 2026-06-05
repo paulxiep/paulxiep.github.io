@@ -23,13 +23,13 @@ export function githubProjectsLoader(): Loader {
 
 			store.clear();
 
-			const publicRepos = projectRepos.filter((p) => !p.private);
-			const privateRepos = projectRepos.filter((p) => p.private);
+			const privateCount = projectRepos.filter((p) => p.private).length;
+			logger.info(`Fetching ${projectRepos.length} repos from GitHub (${privateCount} private)...`);
 
-			logger.info(`Fetching ${publicRepos.length} public repos from GitHub...`);
-
-			// Load public repos from GitHub API
-			for (const config of publicRepos) {
+			// Fetch README + metadata for every repo. Private repos are fetched the
+			// same way (requires an authenticated token), but hide the repo link and
+			// flag closedSource so the page shows a closed-source notice instead.
+			for (const config of projectRepos) {
 				const repo = await fetchRepo(GITHUB_OWNER, config.repo, token);
 				const readme = await fetchReadme(GITHUB_OWNER, config.repo, token);
 				const latestRelease = await fetchLatestRelease(GITHUB_OWNER, config.repo, token);
@@ -39,13 +39,14 @@ export function githubProjectsLoader(): Loader {
 					data: {
 						title: config.title ?? formatRepoName(repo.name),
 						description: config.description ?? repo.description ?? '',
-						repo: repo.html_url,
+						repo: config.private ? undefined : repo.html_url,
 						demo: config.demoUrl ?? (repo.homepage || undefined),
 						release: config.releaseUrl ?? latestRelease?.html_url,
 						tags: config.tags ?? repo.topics,
 						featured: config.featured ?? false,
 						sortOrder: config.sortOrder ?? 999,
 						canonical: config.canonical,
+						closedSource: config.private ?? false,
 					},
 				});
 
@@ -56,36 +57,11 @@ export function githubProjectsLoader(): Loader {
 					rendered: readme
 						? await context.renderMarkdown(readme)
 						: undefined,
-					digest: generateDigest({ pushed_at: repo.pushed_at }),
+					digest: generateDigest({ pushed_at: repo.pushed_at, private: config.private ?? false }),
 				});
 			}
 
-			// Load private repos from local config only (no API calls, no repo link)
-			for (const config of privateRepos) {
-				const data = await parseData({
-					id: config.repo,
-					data: {
-						title: config.title ?? formatRepoName(config.repo),
-						description: config.description ?? '',
-						// No repo link for private repos
-						demo: config.demoUrl || undefined,
-						release: config.releaseUrl || undefined,
-						tags: config.tags ?? [],
-						featured: config.featured ?? false,
-						sortOrder: config.sortOrder ?? 999,
-						canonical: config.canonical,
-					},
-				});
-
-				store.set({
-					id: config.repo,
-					data,
-					body: '',
-					digest: generateDigest({ name: config.repo, private: true }),
-				});
-			}
-
-			logger.info(`Loaded ${projectRepos.length} projects (${privateRepos.length} private)`);
+			logger.info(`Loaded ${projectRepos.length} projects (${privateCount} private)`);
 		},
 	};
 }
