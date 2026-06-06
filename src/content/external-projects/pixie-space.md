@@ -9,6 +9,7 @@ tags: []                  # e.g. ["ml", "demo"]
 featured: true          # set true to surface in homepage Featured Projects
 sortOrder: 3            # lower = earlier in the projects list
 canonical: "https://pixiepavel.com/"
+closedSource: true      # shows "🔒 Source code is private" notice (no public repo)
 # heroImage: "./hero.png" # optional, relative to this file
 ---
 

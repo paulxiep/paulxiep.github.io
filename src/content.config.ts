@@ -58,6 +58,7 @@ const externalProjects = defineCollection({
 			sortOrder: z.number().default(0),
 			heroImage: z.optional(image()),
 			canonical: z.string().url().optional(),
+			closedSource: z.boolean().default(false),
 		}),
 });
 
