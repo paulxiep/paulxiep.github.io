@@ -2,13 +2,13 @@
 # Required
 title: "Pixie Space"
 description: "Browser-native 2D drafting. A project where I design and implement a product end-to-end."
-demoUrl: "https://space.pixiepavel.com"
+demoUrl: "https://space.pixiespace.app"
 
 # Optional
 tags: []                  # e.g. ["ml", "demo"]
 featured: true          # set true to surface in homepage Featured Projects
 sortOrder: 3            # lower = earlier in the projects list
-canonical: "https://pixiepavel.com/"
+canonical: "https://pixiespace.app/"
 closedSource: true      # shows "🔒 Source code is private" notice (no public repo)
 # heroImage: "./hero.png" # optional, relative to this file
 ---
@@ -21,7 +21,7 @@ A project where I design and implement a product end-to-end to test out my busin
 
 ## Pixie
 
-Visit Pixie's home page at [pixiepavel.com](https://pixiepavel.com)
+Visit Pixie's home page at [pixiespace.app](https://pixiespace.app)
 
 Pixie: Magical, whimsical, and mischievous fairy in British folklore. 
 
@@ -33,5 +33,5 @@ As a brand, it evokes the image of magic and effortlessness. Secondarily, of bea
 
 ### Pixie Space
 
-[Pixie Space](https://pixiepavel.com/space/) is [Pixie](https://pixiepavel.com)'s first product that aims to simplify the workflow of [Technical Designing in fashion industry](https://paulxie.com/blog/what-is-fashion-tech/).
+[Pixie Space](https://pixiespace.app/) is [Pixie](https://pixiespace.app)'s first product that aims to simplify the workflow of [Technical Designing in fashion industry](https://paulxie.com/blog/what-is-fashion-tech/).
 
