@@ -10,8 +10,8 @@ const iframeDemos = (await getCollection('demos')).map((d) => ({
 	title: d.data.title,
 	description: d.data.description,
 	image: d.data.image as string | undefined,
-	href: `/demos/${d.id}/`,
-	external: false,
+	href: d.data.external ? d.data.url : `/demos/${d.id}/`,
+	external: d.data.external,
 	sortOrder: d.data.sortOrder,
 }));
 const externalDemos = (await getCollection('externalProjects')).map((p) => ({

@@ -43,6 +43,7 @@ const demos = defineCollection({
 		url: z.string().url(),
 		image: z.string().optional(),
 		sortOrder: z.number().default(0),
+		external: z.boolean().default(false),
 	}),
 });
 

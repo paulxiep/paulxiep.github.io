@@ -43,6 +43,7 @@ export function githubDemosLoader(): Loader {
 						description,
 						url: demoUrl,
 						sortOrder: config.sortOrder ?? 999,
+						external: config.externalDemo ?? false,
 					},
 				});
 

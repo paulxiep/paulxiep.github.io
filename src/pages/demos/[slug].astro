@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
 	const demos = await getCollection('demos');
-	return demos.map((demo) => ({
+	return demos.filter((demo) => !demo.data.external).map((demo) => ({
 		params: { slug: demo.id },
 		props: demo,
 	}));

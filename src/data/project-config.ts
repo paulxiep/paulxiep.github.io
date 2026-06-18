@@ -21,6 +21,11 @@ export interface ProjectConfig {
 	demoSlug?: string;
 	/** Override the demo iframe URL (defaults to repo homepage) */
 	demoUrl?: string;
+	/**
+	 * Link the demo directly (new tab) instead of embedding it in an iframe page.
+	 * Use for apps that can't be framed (auth flows, X-Frame-Options, etc.).
+	 */
+	externalDemo?: boolean;
 	/** Override the release URL (defaults to GitHub's latest release, if any) */
 	releaseUrl?: string;
 	/** Cross-domain canonical URL (when the project's canonical home lives elsewhere) */
@@ -34,9 +39,9 @@ export interface ProjectConfig {
  */
 export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
-	{ repo: 'caravan', sortOrder: 2, featured: true, canonical: 'https://paulxlab.com/caravan' },
-	{ repo: 'cioport', sortOrder: 4, featured: false, title: "CIOport", private: true },
-	{ repo: 'daccord', sortOrder: 5, featured: true, title: "D'accord" },
+	{ repo: 'cioport', sortOrder: 2, featured: true, title: "CIOport", private: true, demoUrl: 'https://cioport.app', externalDemo: true },
+	{ repo: 'caravan', sortOrder: 4, featured: true, canonical: 'https://paulxlab.com/caravan' },
+	{ repo: 'daccord', sortOrder: 5, featured: false, title: "D'accord" },
 	{ repo: 'concurrens', sortOrder: 6, featured: false, private: true },
 	{ repo: 'invoice-parse', sortOrder: 7, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
 	{ repo: 'quant-trading-gym', sortOrder: 8, featured: false },
