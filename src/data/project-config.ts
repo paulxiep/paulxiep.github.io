@@ -40,6 +40,7 @@ export interface ProjectConfig {
 export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
 	{ repo: 'cioport', sortOrder: 2, featured: true, title: "CIOport", private: true, demoUrl: 'https://cioport.app', externalDemo: true },
+	{ repo: 'pixie-space', sortOrder: 3, featured: true, title: "Pixie Space", private: true, demoUrl: 'https://space.pixiespace.app', externalDemo: true, canonical: 'https://pixiespace.app' },
 	{ repo: 'caravan', sortOrder: 4, featured: true, canonical: 'https://paulxlab.com/caravan' },
 	{ repo: 'daccord', sortOrder: 5, featured: false, title: "D'accord" },
 	{ repo: 'concurrens', sortOrder: 6, featured: false, private: true },

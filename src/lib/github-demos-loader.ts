@@ -21,16 +21,10 @@ export function githubDemosLoader(): Loader {
 				let demoUrl: string | null | undefined;
 				let description: string | undefined;
 
-				if (config.private) {
-					// Private repos: use local config only
-					demoUrl = config.demoUrl;
-					description = config.description;
-				} else {
-					// Public repos: check GitHub homepage, allow config override
-					const repo = await fetchRepo(GITHUB_OWNER, config.repo, token);
-					demoUrl = config.demoUrl ?? repo.homepage;
-					description = config.description ?? repo.description ?? undefined;
-				}
+				const repo = await fetchRepo(GITHUB_OWNER, config.repo, token);
+				// Private repos must set demoUrl explicitly; don't auto-expose repo.homepage.
+				demoUrl = config.private ? config.demoUrl : (config.demoUrl ?? repo.homepage);
+				description = config.description ?? repo.description ?? undefined;
 
 				if (!demoUrl) continue;
 
