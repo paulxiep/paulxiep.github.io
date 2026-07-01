@@ -44,9 +44,10 @@ export const projectRepos: ProjectConfig[] = [
 	{ repo: 'caravan', sortOrder: 4, featured: true, canonical: 'https://paulxlab.com/caravan' },
 	{ repo: 'daccord', sortOrder: 5, featured: false, title: "D'accord" },
 	{ repo: 'concurrens', sortOrder: 6, featured: false, private: true },
-	{ repo: 'invoice-parse', sortOrder: 7, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
-	{ repo: 'quant-trading-gym', sortOrder: 8, featured: false },
-	{ repo: 'portfolio', sortOrder: 9, featured: false, title: 'Old Portfolio (2023)' },
+	{ repo: 'cartodex', sortOrder: 7, featured: false },
+	{ repo: 'invoice-parse', sortOrder: 8, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },
+	{ repo: 'quant-trading-gym', sortOrder: 9, featured: false },
+	{ repo: 'portfolio', sortOrder: 10, featured: false, title: 'Old Portfolio (2023)' },
 	// Add more repos here:
 	// { repo: 'another-repo', sortOrder: 2 },
 ];
