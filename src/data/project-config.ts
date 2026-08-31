@@ -17,7 +17,9 @@ export interface ProjectConfig {
 	 * replaced with a closed-source notice on the project page.
 	 */
 	private?: boolean;
-	/** Override the demo slug used in /demos/ URL */
+	/** Override the URL slug — /projects/<path>/ (defaults to the repo name) */
+	path?: string;
+	/** Override the demo slug used in /demos/ URL (defaults to path, then repo name) */
 	demoSlug?: string;
 	/** Override the demo iframe URL (defaults to repo homepage) */
 	demoUrl?: string;
@@ -41,8 +43,8 @@ export const projectRepos: ProjectConfig[] = [
 	{ repo: 'code-rag', sortOrder: 1, featured: true, title: 'Code RAG Chatbot',  demoUrl: 'https://paulxie.com/code-rag/' },
 	{ repo: 'pixie-space', sortOrder: 2, featured: true, title: "Pixie Space", private: true, demoUrl: 'https://space.pixiespace.app', externalDemo: true, canonical: 'https://pixiespace.app' },
 	{ repo: 'caravan', sortOrder: 3, featured: false, canonical: 'https://paulxlab.com/caravan' },
-	{ repo: 'concurrens-emporium', sortOrder: 4, featured: false, title: "Concurrens", private: true },
-	{ repo: 'cocotte-salle', sortOrder: 5, featured: false, title: "Cocotte", private: true },
+	{ repo: 'concurrens-emporium', sortOrder: 4, path: 'concurrens', featured: false, title: "Concurrens", private: true },
+	{ repo: 'cocotte-salle', sortOrder: 5, path: 'cocotte', featured: false, title: "Cocotte", private: true },
 	{ repo: 'cioport', sortOrder: 6, featured: true, title: "CIOport", private: true, demoUrl: 'https://cioport.app', externalDemo: true },
 	{ repo: 'cartodex', sortOrder: 7, featured: true, demoUrl: 'https://cartodex.app', externalDemo: true },
 	{ repo: 'invoice-parse', sortOrder: 8, featured: false, demoUrl: 'https://paulxie.com/invoice-parse/' },

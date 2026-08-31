@@ -33,9 +33,10 @@ export function githubProjectsLoader(): Loader {
 				const repo = await fetchRepo(GITHUB_OWNER, config.repo, token);
 				const readme = await fetchReadme(GITHUB_OWNER, config.repo, token);
 				const latestRelease = await fetchLatestRelease(GITHUB_OWNER, config.repo, token);
+				const slug = config.path ?? repo.name;
 
 				const data = await parseData({
-					id: repo.name,
+					id: slug,
 					data: {
 						title: config.title ?? formatRepoName(repo.name),
 						description: config.description ?? repo.description ?? '',
@@ -51,7 +52,7 @@ export function githubProjectsLoader(): Loader {
 				});
 
 				store.set({
-					id: repo.name,
+					id: slug,
 					data,
 					body: readme ?? '',
 					rendered: readme

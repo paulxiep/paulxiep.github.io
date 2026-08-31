@@ -28,7 +28,7 @@ export function githubDemosLoader(): Loader {
 
 				if (!demoUrl) continue;
 
-				const slug = config.demoSlug ?? config.repo;
+				const slug = config.demoSlug ?? config.path ?? config.repo;
 
 				const data = await parseData({
 					id: slug,
