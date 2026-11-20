@@ -8,6 +8,9 @@ categories:
   - slug: system
     label: "System"
     tags: [system-architecture, software-architecture, economy]
+  - slug: business
+    label: "Business"
+    tags: [startup, product, alignment]
   - slug: languages
     label: "Languages"
     tags: [poetry, translation, language]
